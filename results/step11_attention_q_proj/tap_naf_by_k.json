@@ -1,0 +1,42 @@
+[
+  {
+    "k": 8,
+    "cost_pct": 0.390625,
+    "cost_reduction": 256.0,
+    "mean_naf": 2.84588157466755,
+    "min_naf": 1.142333759542139,
+    "max_naf": 5.979329418863583,
+    "n_niac_detected": 10,
+    "n_total": 15
+  },
+  {
+    "k": 16,
+    "cost_pct": 0.78125,
+    "cost_reduction": 128.0,
+    "mean_naf": 2.7487478655805906,
+    "min_naf": 1.14791808948946,
+    "max_naf": 5.340722932513264,
+    "n_niac_detected": 10,
+    "n_total": 15
+  },
+  {
+    "k": 32,
+    "cost_pct": 1.5625,
+    "cost_reduction": 64.0,
+    "mean_naf": 2.7651700901180907,
+    "min_naf": 1.1478220283364253,
+    "max_naf": 5.239601143642503,
+    "n_niac_detected": 10,
+    "n_total": 15
+  },
+  {
+    "k": 64,
+    "cost_pct": 3.125,
+    "cost_reduction": 32.0,
+    "mean_naf": 2.7952497413336355,
+    "min_naf": 1.153809944653576,
+    "max_naf": 5.266373624899774,
+    "n_niac_detected": 10,
+    "n_total": 15
+  }
+]

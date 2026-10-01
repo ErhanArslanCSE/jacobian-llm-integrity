@@ -1,0 +1,30 @@
+# Debug config: fast iteration (~5 min on A100)
+# Use for verifying code correctness before full runs
+
+model:
+  name: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+  dtype: "bfloat16"
+  attn_implementation: "eager"
+  use_cache: false
+  device: "cuda"
+
+data:
+  dataset: "wikitext"
+  subset: "wikitext-103-v1"
+  split: "test"
+  num_prompts: 10
+  max_length: 128
+  min_length: 32
+
+experiment:
+  layers: [4, 8]                    # Only 2 layers for speed
+  num_directions: 10                # k=10 random directions
+  perturbation_types: ["gaussian"]  # Only gaussian for debug
+  epsilons: [0.001, 0.01]          # 2 epsilon values
+  seed: 42
+  target_layer: -1                  # Perturb last selected layer
+
+output:
+  dir: "results/debug"
+  save_raw: true
+  save_figures: true

@@ -1,0 +1,30 @@
+# Debug config with ALL perturbation types
+# Tests the full hypothesis: activation_matched should have low SNR_act but high SNR_J
+
+model:
+  name: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+  dtype: "bfloat16"
+  attn_implementation: "eager"
+  use_cache: false
+  device: "cuda"
+
+data:
+  dataset: "wikitext"
+  subset: "wikitext-103-v1"
+  split: "test"
+  num_prompts: 10
+  max_length: 128
+  min_length: 32
+
+experiment:
+  layers: [4, 8]
+  num_directions: 10
+  perturbation_types: ["gaussian", "low_rank_1", "low_rank_4", "activation_matched"]
+  epsilons: [0.001, 0.01]
+  seed: 42
+  target_layer: -1
+
+output:
+  dir: "results/debug_all_perturbations"
+  save_raw: true
+  save_figures: true

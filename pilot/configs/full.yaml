@@ -1,0 +1,34 @@
+# Full config: complete experiment (~2-3 hours on A100 80GB)
+# Use for final paper results
+
+model:
+  name: "meta-llama/Meta-Llama-3-8B"
+  dtype: "bfloat16"
+  attn_implementation: "eager"
+  use_cache: false
+  device: "cuda"
+
+data:
+  dataset: "wikitext"
+  subset: "wikitext-103-v1"
+  split: "test"
+  num_prompts: 500
+  max_length: 512
+  min_length: 32
+
+experiment:
+  layers: "all"                     # All transformer layers
+  num_directions: 50                # k=50 random directions
+  perturbation_types:
+    - "gaussian"
+    - "low_rank_1"
+    - "low_rank_4"
+    - "activation_matched"
+  epsilons: [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05]
+  seed: 42
+  target_layer: -1
+
+output:
+  dir: "results/full"
+  save_raw: true
+  save_figures: true

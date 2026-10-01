@@ -1,0 +1,10 @@
+{
+  "weight_hash_ms": 40.05033493041992,
+  "l2_diff_ms": 67.23841905593872,
+  "activation_per_prompt_ms": 9.270191192626953,
+  "tap_per_prompt_ms": 47.35379219055176,
+  "full_jac_per_prompt_ms": 162.14842796325684,
+  "tap_to_act_ratio": 5.1081785915811295,
+  "fjac_to_tap_ratio": 3.4241909773652086,
+  "fjac_to_act_ratio": 17.491379044099162
+}

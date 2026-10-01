@@ -1,0 +1,112 @@
+{
+  "naf_table": [
+    {
+      "k": 8,
+      "cost_pct": 0.390625,
+      "cost_reduction": 256.0,
+      "mean_naf": 2.84588157466755,
+      "min_naf": 1.142333759542139,
+      "max_naf": 5.979329418863583,
+      "n_niac_detected": 10,
+      "n_total": 15
+    },
+    {
+      "k": 16,
+      "cost_pct": 0.78125,
+      "cost_reduction": 128.0,
+      "mean_naf": 2.7487478655805906,
+      "min_naf": 1.14791808948946,
+      "max_naf": 5.340722932513264,
+      "n_niac_detected": 10,
+      "n_total": 15
+    },
+    {
+      "k": 32,
+      "cost_pct": 1.5625,
+      "cost_reduction": 64.0,
+      "mean_naf": 2.7651700901180907,
+      "min_naf": 1.1478220283364253,
+      "max_naf": 5.239601143642503,
+      "n_niac_detected": 10,
+      "n_total": 15
+    },
+    {
+      "k": 64,
+      "cost_pct": 3.125,
+      "cost_reduction": 32.0,
+      "mean_naf": 2.7952497413336355,
+      "min_naf": 1.153809944653576,
+      "max_naf": 5.266373624899774,
+      "n_niac_detected": 10,
+      "n_total": 15
+    }
+  ],
+  "full_jac_validation": {
+    "layer_idx": 12,
+    "n_prompts": 3,
+    "errors": [
+      0.005567450197032511,
+      0.00559836486919021,
+      0.0048502094247547065
+    ],
+    "mean_error": 0.00533867483032581,
+    "max_error": 0.00559836486919021,
+    "runtime_seconds": 0.5089035034179688
+  },
+  "fd_validation": {
+    "mean_rel_err": 3.4526071926717967,
+    "max_rel_err": 3.990892819094232,
+    "std_rel_err": 0.3259073991253882,
+    "median_rel_err": 3.5153183643289916,
+    "n_prompts": 3,
+    "n_probes": 8,
+    "fd_epsilon": 0.01,
+    "layer_idx": 12,
+    "per_probe_mean_err": {
+      "0": 3.646034929800605,
+      "1": 3.6997486189142497,
+      "2": 3.2114098516823204,
+      "3": 3.5347346702277687,
+      "4": 3.1294075194604623,
+      "5": 3.5688038086246023,
+      "6": 3.4780898772046775,
+      "7": 3.3526282654596877
+    }
+  },
+  "_meta": {
+    "experiment": "step11_attention_layer",
+    "model": "meta-llama/Llama-3.2-1B",
+    "target_layers": [
+      2,
+      6,
+      10,
+      12,
+      14
+    ],
+    "target_sublayer": "self_attn.q_proj",
+    "epsilons": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "k_values": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "k_max": 64,
+    "n_cal": 20,
+    "n_test": 20,
+    "hidden_dim": 2048,
+    "seed": 42,
+    "runtime_seconds": 82.95702934265137,
+    "phase_times": {
+      "phase0_load": 10.5317063331604,
+      "phase1_baseline": 5.743942499160767,
+      "phase5_analysis": 2.9857571125030518
+    },
+    "date": "2026-02-27T14:11:54.302229",
+    "version": "step11 -- attention layer (self_attn.q_proj)"
+  }
+}

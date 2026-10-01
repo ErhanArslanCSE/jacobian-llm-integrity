@@ -1,0 +1,111 @@
+{
+  "naf_table": [
+    {
+      "k": 8,
+      "cost_pct": 0.1953125,
+      "cost_reduction": 512.0,
+      "mean_naf": 5.702542438604475,
+      "min_naf": 1.5291720158531503,
+      "max_naf": 11.488206069046011,
+      "n_niac_detected": 10,
+      "n_total": 12
+    },
+    {
+      "k": 16,
+      "cost_pct": 0.390625,
+      "cost_reduction": 256.0,
+      "mean_naf": 5.702090189101303,
+      "min_naf": 1.5267451019296276,
+      "max_naf": 11.492539133372436,
+      "n_niac_detected": 10,
+      "n_total": 12
+    },
+    {
+      "k": 32,
+      "cost_pct": 0.78125,
+      "cost_reduction": 128.0,
+      "mean_naf": 5.7027721532634486,
+      "min_naf": 1.5256484000147086,
+      "max_naf": 11.487407576294379,
+      "n_niac_detected": 10,
+      "n_total": 12
+    },
+    {
+      "k": 64,
+      "cost_pct": 1.5625,
+      "cost_reduction": 64.0,
+      "mean_naf": 5.691340424262564,
+      "min_naf": 1.5249580541760857,
+      "max_naf": 11.476714178608594,
+      "n_niac_detected": 10,
+      "n_total": 12
+    }
+  ],
+  "full_jac_validation": {
+    "layer_idx": 20,
+    "n_prompts": 3,
+    "errors": [
+      0.004211311052319633,
+      0.0046163943192595,
+      0.004317907271447816
+    ],
+    "mean_error": 0.004381870881008983,
+    "max_error": 0.0046163943192595,
+    "runtime_seconds": 2.3743717670440674
+  },
+  "fd_validation": {
+    "mean_rel_err": 2.7269740959587487,
+    "max_rel_err": 3.4077921437263776,
+    "std_rel_err": 0.2480226072935108,
+    "median_rel_err": 2.6702672827463343,
+    "n_prompts": 3,
+    "n_probes": 8,
+    "fd_epsilon": 0.01,
+    "layer_idx": 20,
+    "per_probe_mean_err": {
+      "0": 2.5528840408844804,
+      "1": 2.5850035900544133,
+      "2": 2.9461034745391204,
+      "3": 2.6649608506354077,
+      "4": 2.714245347103447,
+      "5": 2.7811550036377586,
+      "6": 2.8519505904271925,
+      "7": 2.719489870388172
+    }
+  },
+  "_meta": {
+    "experiment": "step10_cross_architecture",
+    "model": "mistralai/Mistral-7B-v0.3",
+    "target_layers": [
+      4,
+      12,
+      20,
+      28
+    ],
+    "target_sublayer": "mlp.gate_proj",
+    "epsilons": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "k_values": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "k_max": 64,
+    "n_cal": 20,
+    "n_test": 20,
+    "hidden_dim": 4096,
+    "seed": 42,
+    "runtime_seconds": 114.85838532447815,
+    "phase_times": {
+      "phase0_load": 25.46430015563965,
+      "phase1_baseline": 4.991591930389404,
+      "phase5_analysis": 4.240175724029541
+    },
+    "date": "2026-02-27T13:42:22.712772",
+    "version": "step10 -- cross-architecture (direct tap JVPs)"
+  }
+}

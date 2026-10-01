@@ -1,0 +1,110 @@
+{
+  "naf_table": [
+    {
+      "k": 8,
+      "cost_pct": 0.26041666666666663,
+      "cost_reduction": 384.0,
+      "mean_naf": 6.358307950191194,
+      "min_naf": 1.6650192767836818,
+      "max_naf": 12.927582456276433,
+      "n_niac_detected": 12,
+      "n_total": 12
+    },
+    {
+      "k": 16,
+      "cost_pct": 0.5208333333333333,
+      "cost_reduction": 192.0,
+      "mean_naf": 6.36288108491133,
+      "min_naf": 1.6777937013910358,
+      "max_naf": 12.881246804191933,
+      "n_niac_detected": 12,
+      "n_total": 12
+    },
+    {
+      "k": 32,
+      "cost_pct": 1.0416666666666665,
+      "cost_reduction": 96.0,
+      "mean_naf": 6.368786006442047,
+      "min_naf": 1.6817634320064767,
+      "max_naf": 12.885473758064833,
+      "n_niac_detected": 12,
+      "n_total": 12
+    },
+    {
+      "k": 64,
+      "cost_pct": 2.083333333333333,
+      "cost_reduction": 48.0,
+      "mean_naf": 6.354941290464207,
+      "min_naf": 1.678534844343064,
+      "max_naf": 12.840159653202225,
+      "n_niac_detected": 12,
+      "n_total": 12
+    }
+  ],
+  "full_jac_validation": {
+    "layer_idx": 10,
+    "n_prompts": 3,
+    "errors": [
+      0.005648345588385425,
+      0.005795581537674093,
+      0.005930079190371715
+    ],
+    "mean_error": 0.005791335438810411,
+    "max_error": 0.005930079190371715,
+    "runtime_seconds": 1.0737314224243164
+  },
+  "fd_validation": {
+    "mean_rel_err": 3.5370255656043965,
+    "max_rel_err": 4.158086325325533,
+    "std_rel_err": 0.2452108939616237,
+    "median_rel_err": 3.5606750906665097,
+    "n_prompts": 3,
+    "n_probes": 8,
+    "fd_epsilon": 0.01,
+    "layer_idx": 10,
+    "per_probe_mean_err": {
+      "0": 3.6456179349623663,
+      "1": 3.4464519305919517,
+      "2": 3.676847433248836,
+      "3": 3.547692585727067,
+      "4": 3.6529125710006802,
+      "5": 3.5546297540935825,
+      "6": 3.2824309631649218,
+      "7": 3.4896213520457615
+    }
+  },
+  "_meta": {
+    "model": "meta-llama/Llama-3.2-3B",
+    "target_layers": [
+      3,
+      10,
+      18,
+      25
+    ],
+    "target_sublayer": "mlp.gate_proj",
+    "epsilons": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "k_values": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "k_max": 64,
+    "n_cal": 20,
+    "n_test": 20,
+    "hidden_dim": 3072,
+    "seed": 42,
+    "runtime_seconds": 81.73583650588989,
+    "phase_times": {
+      "phase0_load": 11.985395669937134,
+      "phase1_baseline": 4.939413070678711,
+      "phase5_analysis": 3.3394775390625
+    },
+    "date": "2026-02-27T02:54:35.770869",
+    "version": "step8 -- scale test (direct tap JVPs)"
+  }
+}

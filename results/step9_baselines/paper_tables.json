@@ -1,0 +1,227 @@
+{
+  "table_a_method_properties": [
+    {
+      "method": "Weight Hash (SHA-256)",
+      "access": "Weight",
+      "cost": "O(P), 40.05ms",
+      "online": false,
+      "detects_all": true,
+      "note": "Requires weight access"
+    },
+    {
+      "method": "L2 Weight Diff",
+      "access": "Weight",
+      "cost": "O(P), 67.24ms",
+      "online": false,
+      "detects_all": true,
+      "note": "Requires weight access"
+    },
+    {
+      "method": "Activation Monitoring",
+      "access": "Inference",
+      "cost": "O(1), 9.3ms",
+      "online": true,
+      "detects_all": false,
+      "note": "BLIND to null-space"
+    },
+    {
+      "method": "Tap Test (k=8)",
+      "access": "Inference",
+      "cost": "O(k), 47.4ms",
+      "online": true,
+      "detects_all": true,
+      "note": ""
+    },
+    {
+      "method": "Full Jacobian",
+      "access": "Inference",
+      "cost": "O(d^2), 162ms",
+      "online": true,
+      "detects_all": true,
+      "note": "256x more expensive than tap"
+    }
+  ],
+  "table_b_detection_signal": [
+    {
+      "eps": 0.01,
+      "gauss_act_d": 5.473495193967795,
+      "gauss_tap_d": 9.45445991697944,
+      "gauss_l2": 0.010085730806746126,
+      "gauss_hash": "CHANGED",
+      "ns_act_d": 6.387755802474718,
+      "ns_tap_d": 9.333270625628893,
+      "ns_l2": 0.010116807609659705,
+      "ns_hash": "CHANGED"
+    },
+    {
+      "eps": 0.05,
+      "gauss_act_d": 5.030915768246632,
+      "gauss_tap_d": 8.383514388078032,
+      "gauss_l2": 0.04973477029073038,
+      "gauss_hash": "CHANGED",
+      "ns_act_d": 6.726997567829158,
+      "ns_tap_d": 7.360919683602093,
+      "ns_l2": 0.05001952814726481,
+      "ns_hash": "CHANGED"
+    },
+    {
+      "eps": 0.1,
+      "gauss_act_d": 5.00529203265966,
+      "gauss_tap_d": 8.316561052800136,
+      "gauss_l2": 0.09951877264257661,
+      "gauss_hash": "CHANGED",
+      "ns_act_d": 7.056091325338658,
+      "ns_tap_d": 7.248162804922438,
+      "ns_l2": 0.10008900480831592,
+      "ns_hash": "CHANGED"
+    }
+  ],
+  "table_c_detection_matrix": [
+    {
+      "layer": 2,
+      "eps": 0.01,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "WEAK-NIAC",
+      "naf": 1.8709393071343698
+    },
+    {
+      "layer": 2,
+      "eps": 0.05,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 7.050567841515582
+    },
+    {
+      "layer": 2,
+      "eps": 0.1,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 14.005381146725682
+    },
+    {
+      "layer": 6,
+      "eps": 0.01,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "WEAK-NIAC",
+      "naf": 1.9598643609307296
+    },
+    {
+      "layer": 6,
+      "eps": 0.05,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 7.811499005495505
+    },
+    {
+      "layer": 6,
+      "eps": 0.1,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 15.748828575728261
+    },
+    {
+      "layer": 10,
+      "eps": 0.01,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "WEAK-NIAC",
+      "naf": 2.016828732237257
+    },
+    {
+      "layer": 10,
+      "eps": 0.05,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 7.956126230495041
+    },
+    {
+      "layer": 10,
+      "eps": 0.1,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 14.77025525928629
+    },
+    {
+      "layer": 12,
+      "eps": 0.01,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "WEAK-NIAC",
+      "naf": 1.8166954726409767
+    },
+    {
+      "layer": 12,
+      "eps": 0.05,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 6.498672077585512
+    },
+    {
+      "layer": 12,
+      "eps": 0.1,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 12.897098779996673
+    },
+    {
+      "layer": 14,
+      "eps": 0.01,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "WEAK-NIAC",
+      "naf": 1.792310657533112
+    },
+    {
+      "layer": 14,
+      "eps": 0.05,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 6.22419161878789
+    },
+    {
+      "layer": 14,
+      "eps": 0.1,
+      "act_detects_ns": false,
+      "tap_detects_ns": true,
+      "decision": "NIAC-DETECTED",
+      "naf": 12.828900668519719
+    }
+  ],
+  "table_d_tap_vs_fjac": [
+    {
+      "layer": 12,
+      "eps": 0.01,
+      "tap_naf": 1.8166954726409767,
+      "tap_decision": "WEAK-NIAC",
+      "fjac_naf": 1.9070531602213208,
+      "fjac_decision": "WEAK-NIAC"
+    },
+    {
+      "layer": 12,
+      "eps": 0.05,
+      "tap_naf": 6.498672077585512,
+      "tap_decision": "NIAC-DETECTED",
+      "fjac_naf": 6.368166921863451,
+      "fjac_decision": "NIAC-DETECTED"
+    },
+    {
+      "layer": 12,
+      "eps": 0.1,
+      "tap_naf": 12.897098779996673,
+      "tap_decision": "NIAC-DETECTED",
+      "fjac_naf": 13.311261331129856,
+      "fjac_decision": "NIAC-DETECTED"
+    }
+  ]
+}

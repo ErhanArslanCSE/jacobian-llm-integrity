@@ -1,0 +1,133 @@
+{
+  "gaussian_eps0.01": {
+    "4": {
+      "snr_act": 0.0,
+      "snr_j": 0.0,
+      "ratio": 0.0,
+      "decision": "NO-GO",
+      "act_mean": 0.0,
+      "act_std": 0.0,
+      "jvp_mean": 0.0,
+      "jvp_std": 0.0,
+      "auc_act": 0.5,
+      "auc_jvp": 0.5
+    },
+    "8": {
+      "snr_act": 0.0,
+      "snr_j": 0.0,
+      "ratio": 0.0,
+      "decision": "NO-GO",
+      "act_mean": 0.0,
+      "act_std": 0.0,
+      "jvp_mean": 0.0,
+      "jvp_std": 0.0,
+      "auc_act": 0.5,
+      "auc_jvp": 0.5
+    },
+    "12": {
+      "snr_act": 6.100,
+      "snr_j": 1.287,
+      "ratio": 0.211,
+      "decision": "NO-GO",
+      "act_mean": 0.00976,
+      "act_std": 0.00160,
+      "jvp_mean": 0.000396,
+      "jvp_std": 0.000307,
+      "welch_p": 5.08e-08,
+      "auc_act": 1.0,
+      "auc_jvp": 0.867
+    }
+  },
+  "gaussian_eps0.05": {
+    "12": {
+      "snr_act": 6.075,
+      "snr_j": 2.941,
+      "ratio": 0.484,
+      "decision": "NO-GO",
+      "act_mean": 0.04240,
+      "act_std": 0.00698,
+      "jvp_mean": 0.00179,
+      "jvp_std": 0.000608,
+      "welch_p": 0.0822,
+      "auc_act": 1.0,
+      "auc_jvp": 1.0
+    }
+  },
+  "gaussian_eps0.1": {
+    "12": {
+      "snr_act": 6.015,
+      "snr_j": 3.182,
+      "ratio": 0.529,
+      "decision": "NO-GO",
+      "act_mean": 0.08497,
+      "act_std": 0.01413,
+      "jvp_mean": 0.00562,
+      "jvp_std": 0.00176,
+      "welch_p": 0.00132,
+      "auc_act": 1.0,
+      "auc_jvp": 1.0
+    }
+  },
+  "activation_matched_eps0.01": {
+    "12": {
+      "snr_act": 4.015,
+      "snr_j": 0.961,
+      "ratio": 0.239,
+      "decision": "NO-GO",
+      "act_mean": 0.06159,
+      "act_std": 0.01534,
+      "jvp_mean": 0.01531,
+      "jvp_std": 0.01593,
+      "welch_p": 0.000471,
+      "auc_act": 1.0,
+      "auc_jvp": 1.0
+    }
+  },
+  "activation_matched_eps0.05": {
+    "12": {
+      "snr_act": 4.320,
+      "snr_j": 1.565,
+      "ratio": 0.362,
+      "decision": "NO-GO",
+      "act_mean": 0.18547,
+      "act_std": 0.04293,
+      "jvp_mean": 0.05044,
+      "jvp_std": 0.03223,
+      "welch_p": 0.00835,
+      "auc_act": 1.0,
+      "auc_jvp": 1.0
+    }
+  },
+  "activation_matched_eps0.1": {
+    "12": {
+      "snr_act": 5.473,
+      "snr_j": 1.799,
+      "ratio": 0.329,
+      "decision": "NO-GO",
+      "act_mean": 0.25782,
+      "act_std": 0.04711,
+      "jvp_mean": 0.04492,
+      "jvp_std": 0.02497,
+      "welch_p": 3.32e-09,
+      "auc_act": 1.0,
+      "auc_jvp": 1.0
+    }
+  },
+  "_meta": {
+    "model": "meta-llama/Llama-3.2-1B",
+    "num_prompts_total": 60,
+    "num_prompts_train": 30,
+    "num_prompts_test": 30,
+    "num_directions": 30,
+    "target_layer": 12,
+    "overall_decision": "NO-GO",
+    "runtime_seconds": 307.6,
+    "date": "2026-02-26",
+    "summary": {
+      "go_count": 0,
+      "marginal_count": 0,
+      "nogo_count": 18,
+      "go_fraction": 0.0
+    }
+  }
+}

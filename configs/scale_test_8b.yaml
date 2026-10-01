@@ -1,0 +1,41 @@
+model:
+  name: "meta-llama/Llama-3.1-8B"
+  dtype: "bfloat16"
+  attn_implementation: "eager"
+  use_cache: false
+  device: "cuda"
+
+data:
+  dataset: "wikitext"
+  subset: "wikitext-103-v1"
+  split: "test"
+  num_prompts: 50
+  max_length: 128
+  min_length: 32
+
+experiment:
+  target_layers: [4, 12, 20, 28]
+  target_sublayer: "mlp.gate_proj"
+  epsilons: [0.01, 0.05, 0.1]
+  n_cal: 20
+  n_test: 20
+  seed: 42
+  jvp_chunk_size: 64
+
+scale_test:
+  k_values: [8, 16, 32, 64]
+  k_max: 64
+  full_jac_validation:
+    enabled: true
+    n_prompts: 3
+    layer_idx: 12
+  fd_validation:
+    enabled: true
+    epsilon: 0.01
+    n_prompts: 3
+    n_probes: 8
+    layer_idx: 12
+
+output:
+  dir: "results/step8_scale_test_8b"
+  save_raw: true

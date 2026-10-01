@@ -1,0 +1,111 @@
+{
+  "naf_table": [
+    {
+      "k": 8,
+      "cost_pct": 0.2232142857142857,
+      "cost_reduction": 448.0,
+      "mean_naf": 5.795369182631197,
+      "min_naf": 1.5003549008152204,
+      "max_naf": 11.299803956956227,
+      "n_niac_detected": 12,
+      "n_total": 12
+    },
+    {
+      "k": 16,
+      "cost_pct": 0.4464285714285714,
+      "cost_reduction": 224.0,
+      "mean_naf": 5.82675970121386,
+      "min_naf": 1.532697684370798,
+      "max_naf": 11.292040343453477,
+      "n_niac_detected": 12,
+      "n_total": 12
+    },
+    {
+      "k": 32,
+      "cost_pct": 0.8928571428571428,
+      "cost_reduction": 112.0,
+      "mean_naf": 5.807019017182388,
+      "min_naf": 1.5144673571839726,
+      "max_naf": 11.262142269437117,
+      "n_niac_detected": 12,
+      "n_total": 12
+    },
+    {
+      "k": 64,
+      "cost_pct": 1.7857142857142856,
+      "cost_reduction": 56.0,
+      "mean_naf": 5.807244157002375,
+      "min_naf": 1.509339121638454,
+      "max_naf": 11.275991480660572,
+      "n_niac_detected": 12,
+      "n_total": 12
+    }
+  ],
+  "full_jac_validation": {
+    "layer_idx": 18,
+    "n_prompts": 3,
+    "errors": [
+      0.006081989568535189,
+      0.0058127292581105034,
+      0.005698993648922108
+    ],
+    "mean_error": 0.005864570825189266,
+    "max_error": 0.006081989568535189,
+    "runtime_seconds": 2.0926406383514404
+  },
+  "fd_validation": {
+    "mean_rel_err": 22.212802854981334,
+    "max_rel_err": 36.51581416213479,
+    "std_rel_err": 6.520739462443186,
+    "median_rel_err": 20.550779322873993,
+    "n_prompts": 3,
+    "n_probes": 8,
+    "fd_epsilon": 0.01,
+    "layer_idx": 18,
+    "per_probe_mean_err": {
+      "0": 17.607629687971723,
+      "1": 19.602109200213064,
+      "2": 25.342494948017777,
+      "3": 27.097351778781597,
+      "4": 21.11634258953382,
+      "5": 24.02430970974022,
+      "6": 17.68212619644986,
+      "7": 25.230058729142616
+    }
+  },
+  "_meta": {
+    "experiment": "step10_cross_architecture",
+    "model": "Qwen/Qwen2.5-7B",
+    "target_layers": [
+      4,
+      10,
+      18,
+      24
+    ],
+    "target_sublayer": "mlp.gate_proj",
+    "epsilons": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "k_values": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "k_max": 64,
+    "n_cal": 20,
+    "n_test": 20,
+    "hidden_dim": 3584,
+    "seed": 42,
+    "runtime_seconds": 120.6518964767456,
+    "phase_times": {
+      "phase0_load": 33.896090507507324,
+      "phase1_baseline": 4.996036052703857,
+      "phase5_analysis": 3.8103253841400146
+    },
+    "date": "2026-02-27T13:36:02.794074",
+    "version": "step10 -- cross-architecture (direct tap JVPs)"
+  }
+}

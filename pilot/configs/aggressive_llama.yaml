@@ -1,0 +1,31 @@
+# Aggressive test with Llama-3.2-1B
+# Larger epsilon values to push activation_matched harder
+# Last-token-focused GD optimization
+
+model:
+  name: "meta-llama/Llama-3.2-1B"
+  dtype: "bfloat16"
+  attn_implementation: "eager"
+  use_cache: false
+  device: "cuda"
+
+data:
+  dataset: "wikitext"
+  subset: "wikitext-103-v1"
+  split: "test"
+  num_prompts: 50
+  max_length: 128
+  min_length: 32
+
+experiment:
+  layers: [4, 8, 12]
+  num_directions: 30
+  perturbation_types: ["gaussian", "activation_matched"]
+  epsilons: [0.01, 0.05, 0.1]
+  seed: 42
+  target_layer: -1
+
+output:
+  dir: "results/aggressive_llama"
+  save_raw: true
+  save_figures: true
