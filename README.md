@@ -61,6 +61,16 @@ text-only API access, neither activation nor Jacobian monitoring is possible. Th
 auditors in between: they can query hidden states and layer derivatives of the served model but
 cannot read its weight files.
 
+<p align="center">
+  <img src="assets/system_model.png" alt="System and threat model: approval, deployment and audit" width="900">
+</p>
+
+*System and threat model. At approval the auditor fixes the calibration prompts, draws secret
+probes V and stores reference activations and Jacobian responses. An adversary later edits a
+sublayer of the served model, knowing the calibration prompts and the monitor but not V. Each
+audit reaches the served model only through an inference interface, never through the weight
+files, and decides with a one-sided t-test at α = 0.001.*
+
 ## Main results
 
 All numbers below come from the files in [`results/`](results/) and are reported in the paper.
@@ -88,6 +98,15 @@ edit):
   edited layer.
 - The blind spot is specific to the calibration prompts: on held-out prompts the activation signal
   of a null-space edit is suppressed by only 19%, 28% and 29% at ε = 0.01, 0.05 and 0.1.
+
+<p align="center">
+  <img src="assets/signal_eps.png" alt="Activation and Jacobian signals of null-space edits on calibration and held-out prompts" width="480">
+</p>
+
+*The same null-space edits (Llama-3.2-1B `gate_proj`, layer 12, n<sub>cal</sub> = 30 calibration
+and 30 held-out prompts) remove most of the activation signal on the calibration prompts but leave
+most of it on held-out prompts, while their Jacobian signal (full Jacobian) on the calibration
+prompts stays at 69–73% of that of an equal-size random edit.*
 
 **Number of probes.** Eight random orthonormal probes recover the NAF of the full Jacobian
 (mean 100.05%, range 99.10–102.53%); probes taken from the principal directions of the approved
