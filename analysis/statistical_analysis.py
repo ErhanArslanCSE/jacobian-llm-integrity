@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 """
-NIS Paper v2 — Statistical Analysis Script
-============================================
-Tüm istatistiksel hesaplamaları mevcut deney verilerinden yapar.
-HİÇBİR deney yeniden çalıştırılmaz — sadece sonuç dosyalarından hesaplama.
+Statistical analysis over the stored experiment results
+=======================================================
+Computes all statistics from the result files in <repo>/results/; no experiment is re-run.
 
-Hesaplamalar:
-  1. Bootstrap 95% CI (NAF ve Cohen's d için)
-  2. Shapiro-Wilk normallik testi + Wilcoxon doğrulama
+Computations:
+  1. Bootstrap 95% confidence intervals (NAF and Cohen's d)
+  2. Shapiro-Wilk normality tests with Wilcoxon cross-checks
   3. Bonferroni-adjusted p-values
-  4. MDE (Minimum Detectable Effect) tahmini
-  5. NAF Threshold ROC analizi
+  4. Minimum detectable effect (MDE) estimates
+  5. ROC analysis of the NAF threshold
 
-Kullanım:
-  python3 statistical_analysis.py
+Usage:
+  python analysis/statistical_analysis.py
 """
 
 import json
@@ -47,7 +46,7 @@ def load_json(path: str) -> dict:
 
 
 def load_all_experiment_data() -> dict:
-    """Tüm deney verilerini tek bir dict'e yükler."""
+    """Load all experiment results into one dict."""
     data = {}
 
     # Exp2: Core NIAC detection (has raw per-prompt diffs)
@@ -125,11 +124,11 @@ def load_all_experiment_data() -> dict:
 
 
 def _parse_terminal_json(path: str) -> Optional[dict]:
-    """Terminal output formatındaki dosyalardan JSON parse eder."""
+    """Parse the JSON part of files saved as terminal output."""
     try:
         with open(path) as f:
             content = f.read()
-        # JSON kısmını bul (ilk { ile son } arası)
+        # Locate the JSON part (from the first { to the last })
         start = content.find('{"layer_summary"')
         if start == -1:
             start = content.find('{')
@@ -278,7 +277,7 @@ def compute_bootstrap_cis_exp2(data: dict) -> list:
 
 
 def compute_bootstrap_cis_summary_nafs(data: dict) -> list:
-    """Summary-level NAF verilerinden bootstrap CI hesapla (per-condition NAF'lar üzerinden)."""
+    """Bootstrap CIs from summary-level NAF values (resampling per-condition NAFs)."""
     results = []
 
     # Exp3: Calibration sweep — multiple n_cal values give repeated NAF measurements
@@ -405,7 +404,7 @@ def compute_bootstrap_cis_summary_nafs(data: dict) -> list:
 
 
 # =============================================================================
-# 2. SHAPIRO-WILK NORMALLIK TESTİ
+# 2. SHAPIRO-WILK NORMALITY TEST
 # =============================================================================
 
 def shapiro_wilk_analysis(data: dict) -> list:
@@ -459,7 +458,7 @@ def shapiro_wilk_analysis(data: dict) -> list:
 # =============================================================================
 
 def collect_all_p_values(data: dict) -> list:
-    """Tüm deneylerden p-value'ları topla."""
+    """Collect p-values from all experiments."""
     pvals = []
 
     # Exp2
@@ -506,7 +505,7 @@ def collect_all_p_values(data: dict) -> list:
 
 
 def bonferroni_correction(pvals: list) -> list:
-    """Bonferroni düzeltmesi uygula."""
+    """Apply the Bonferroni correction."""
     n = len(pvals)
     alpha_adj = 0.05 / n if n > 0 else 0.05
 
@@ -524,11 +523,11 @@ def bonferroni_correction(pvals: list) -> list:
 
 
 # =============================================================================
-# 4. MDE (MINIMUM DETECTABLE EFFECT) TAHMİNİ
+# 4. MDE (MINIMUM DETECTABLE EFFECT) ESTIMATE
 # =============================================================================
 
 def mde_analysis(data: dict) -> dict:
-    """Epsilon küçüldükçe cal_jac_mean nasıl değişiyor? MDE tahmini."""
+    """Estimate the MDE from how cal_jac_mean changes as epsilon decreases."""
     results = {}
 
     # Exp2: Gaussian sublayer across epsilons
@@ -586,13 +585,13 @@ def mde_analysis(data: dict) -> dict:
 
 
 # =============================================================================
-# 5. NAF THRESHOLD ROC ANALİZİ
+# 5. NAF THRESHOLD ROC ANALYSIS
 # =============================================================================
 
 def naf_threshold_roc(data: dict) -> dict:
-    """NAF=3.0 eşiğinin seçim gerekçesi ve ROC analizi."""
+    """ROC analysis of the NAF = 3.0 threshold."""
 
-    # Tüm NAF değerlerini topla: pozitif = NIAC-DETECTED, negatif = clean/WEAK
+    # Collect all NAF values: positive = NIAC-DETECTED, negative = clean/WEAK
     all_nafs = []
 
     # Exp3 sweep: NAF > 3 = real NIAC, NAF < 3 = weak/small epsilon

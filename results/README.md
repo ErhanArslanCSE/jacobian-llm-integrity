@@ -34,7 +34,7 @@ its configuration file (see the note under `step2_eval_v2_fixed/`).
 |---|---|---|---|---|
 | [`pilot/step8_corrected_relative_traintest/`](pilot/step8_corrected_relative_traintest/) | 1 (pilot) | [`pilot/run.py`](../pilot/run.py) | [`pilot/configs/corrected_v1.yaml`](../pilot/configs/corrected_v1.yaml) | 30 / 30 |
 | [`pilot/step9_frobenius_full_jacobian/`](pilot/step9_frobenius_full_jacobian/) | 1 (pilot) | [`pilot/run_frobenius.py`](../pilot/run_frobenius.py) | [`pilot/configs/step9_frobenius.yaml`](../pilot/configs/step9_frobenius.yaml) | 30 / 30 |
-| [`step2_eval_v2_fixed/`](step2_eval_v2_fixed/) | 2 | [`run_step2_nullspace.py`](../experiments/run_step2_nullspace.py) | [`nullspace.yaml`](../configs/nullspace.yaml) with `data.num_prompts: 60` | 30 / 30 |
+| [`step2_eval_v2_fixed/`](step2_eval_v2_fixed/) | 2 | [`run_step2_nullspace.py`](../experiments/run_step2_nullspace.py) | [`nullspace_step2.yaml`](../configs/nullspace_step2.yaml) | 30 / 30 |
 | [`step3_cal_sweep/`](step3_cal_sweep/) | 3 | [`run_step3_cal_sweep.py`](../experiments/run_step3_cal_sweep.py) | [`nullspace.yaml`](../configs/nullspace.yaml) | 10, 20, 30, 50, 100 / 30 |
 | [`step4_multi_layer/`](step4_multi_layer/) | 4 | [`run_step4_multi_layer.py`](../experiments/run_step4_multi_layer.py) | [`multi_layer.yaml`](../configs/multi_layer.yaml) | 30 / 30 |
 | [`step4_eval_20260226_154914/`](step4_eval_20260226_154914/) | 4 (capture) | same as above | same as above | 30 / 30 |
@@ -99,10 +99,7 @@ Experiment 2: Llama-3.2-1B, `mlp.gate_proj` of layer 12, full Jacobian.
 
 The AUC fields are 1.0 whenever the noise floor is zero and are not used.
 
-Configuration note: the run used `data.num_prompts: 60` (split 30/30 by the script). The shipped
-[`configs/nullspace.yaml`](../configs/nullspace.yaml) is shared with Experiment 3 and sets
-`num_prompts: 150` and `output.dir: results/step3_cal_sweep`; reproduce this folder with a copy
-that sets `num_prompts: 60` and its own `output.dir`.
+Configuration: [`configs/nullspace_step2.yaml`](../configs/nullspace_step2.yaml) is the configuration of this run (`data.num_prompts: 60`, split 30/30 by the script); a re-run writes to `results/step2_nullspace_v2/`.
 
 ## `step3_cal_sweep/`
 

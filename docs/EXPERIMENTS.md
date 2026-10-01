@@ -161,12 +161,9 @@ set the adversary knows, not of activation monitoring in general. The evasion ru
 in all later experiments were defined here.
 
 **Files.** Script [`experiments/run_step2_nullspace.py`](../experiments/run_step2_nullspace.py);
-results [`results/step2_eval_v2_fixed/`](../results/step2_eval_v2_fixed/). Configuration: the
-stored run used the settings of [`configs/nullspace.yaml`](../configs/nullspace.yaml) with
-`data.num_prompts: 60`. The script splits the loaded prompts in half, so the shipped value of 150
-(shared with Experiment 3) gives a 75/75 split, and it writes to that file's `output.dir`
-(`results/step3_cal_sweep`). To reproduce the stored run, use a copy of the file with
-`data.num_prompts: 60` and a new `output.dir`.
+results [`results/step2_eval_v2_fixed/`](../results/step2_eval_v2_fixed/). Configuration
+[`configs/nullspace_step2.yaml`](../configs/nullspace_step2.yaml) (`data.num_prompts: 60`, which the
+script splits 30/30); a re-run writes to `results/step2_nullspace_v2/`.
 
 ---
 
@@ -489,7 +486,7 @@ standard backdoor of Experiment 5 (not a null-space edit), and the Gaussian cont
 | Exp. | Question | Script | Config | Results folder | Paper section |
 |---|---|---|---|---|---|
 | 1 | Is a Jacobian statistic more sensitive than activations? (pilot) | [`pilot/run.py`](../pilot/run.py), [`pilot/run_frobenius.py`](../pilot/run_frobenius.py), re-analysis [`run_step1_reanalysis.py`](../experiments/run_step1_reanalysis.py) | [`corrected_v1.yaml`](../pilot/configs/corrected_v1.yaml), [`step9_frobenius.yaml`](../pilot/configs/step9_frobenius.yaml) | [`results/pilot/`](../results/pilot/) | Sec. 4.1 (compute only) |
-| 2 | Do null-space edits evade activations but not the Jacobian? | [`run_step2_nullspace.py`](../experiments/run_step2_nullspace.py) | [`nullspace.yaml`](../configs/nullspace.yaml) with `num_prompts: 60` | [`step2_eval_v2_fixed/`](../results/step2_eval_v2_fixed/) | Sec. 4.1, 4.2 |
+| 2 | Do null-space edits evade activations but not the Jacobian? | [`run_step2_nullspace.py`](../experiments/run_step2_nullspace.py) | [`nullspace_step2.yaml`](../configs/nullspace_step2.yaml) | [`step2_eval_v2_fixed/`](../results/step2_eval_v2_fixed/) | Sec. 4.1, 4.2 |
 | 3 | Does the calibration size matter? | [`run_step3_cal_sweep.py`](../experiments/run_step3_cal_sweep.py) | [`nullspace.yaml`](../configs/nullspace.yaml) | [`step3_cal_sweep/`](../results/step3_cal_sweep/) | Sec. 4.2 |
 | 4 | Does it hold at other layers? | [`run_step4_multi_layer.py`](../experiments/run_step4_multi_layer.py) | [`multi_layer.yaml`](../configs/multi_layer.yaml) | [`step4_multi_layer/`](../results/step4_multi_layer/) | Sec. 4.2 |
 | 5 | Does a standard backdoor evade activations? (L1) | [`run_step5_backdoor.py`](../experiments/run_step5_backdoor.py) | [`backdoor.yaml`](../configs/backdoor.yaml) | [`step5_eval_20260226_220101/`](../results/step5_eval_20260226_220101/) | Sec. 4.3 |

@@ -146,14 +146,14 @@ All experiments in the paper were run on a single NVIDIA H200 GPU.
 Run every script from the repository root as a module, so that `src/` is importable:
 
 ```bash
-python -m experiments.run_step2_nullspace --config configs/nullspace.yaml
+python -m experiments.run_step2_nullspace --config configs/nullspace_step2.yaml
 ```
 
 | # | What it tests | Command (from the repository root) | Stored results |
 |---|---|---|---|
 | 1 | Pilot: Jacobian vs. activation signal-to-noise | see [`pilot/README.md`](pilot/README.md) | [`results/pilot/`](results/pilot/) |
 | 1b | Re-analysis of the pilot with corrected statistics | `python -m experiments.run_step1_reanalysis` | printed summary |
-| 2 | Null-space edits on Llama-3.2-1B `gate_proj` | `python -m experiments.run_step2_nullspace --config configs/nullspace.yaml` | [`results/step2_eval_v2_fixed/`](results/step2_eval_v2_fixed/) |
+| 2 | Null-space edits on Llama-3.2-1B `gate_proj` | `python -m experiments.run_step2_nullspace --config configs/nullspace_step2.yaml` | [`results/step2_eval_v2_fixed/`](results/step2_eval_v2_fixed/) |
 | 3 | Calibration-set size sweep (n<sub>cal</sub> = 10 to 100) | `python -m experiments.run_step3_cal_sweep --config configs/nullspace.yaml` | [`results/step3_cal_sweep/`](results/step3_cal_sweep/) |
 | 4 | Five layers × three edit sizes | `python -m experiments.run_step4_multi_layer --config configs/multi_layer.yaml` | [`results/step4_multi_layer/`](results/step4_multi_layer/) |
 | 5 | Standard fine-tuned backdoor | `python -m experiments.run_step5_backdoor --config configs/backdoor.yaml` | [`results/step5_eval_20260226_220101/`](results/step5_eval_20260226_220101/) |
