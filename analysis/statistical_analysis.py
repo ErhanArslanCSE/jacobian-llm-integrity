@@ -707,7 +707,7 @@ def format_ci_short(mean, ci):
 
 def main():
     print("=" * 80)
-    print("NIS Paper v2 — Statistical Analysis")
+    print("Statistical analysis of Experiments 1 to 11")
     print("=" * 80)
 
     # Load data
