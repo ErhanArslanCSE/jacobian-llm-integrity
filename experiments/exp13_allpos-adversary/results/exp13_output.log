@@ -1,0 +1,907 @@
+NVIDIA RTX PRO 4500 Blackwell, 32623 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+...                                                                      [100%]
+3 passed in 21.00s
+-- bfloat16 run (arithmetic of the paper) --
+================================================================================
+EXPERIMENT 13: ADAPTIVE ALL-POSITION ADVERSARY
+================================================================================
+model:
+  name: meta-llama/Llama-3.2-1B
+  dtype: bfloat16
+  attn_implementation: eager
+  use_cache: false
+  device: cuda
+data:
+  dataset: Salesforce/wikitext
+  subset: wikitext-103-v1
+  split: test
+  num_prompts: 80
+  max_length: 128
+  min_length: 32
+experiment:
+  target_layers:
+  - 2
+  - 6
+  - 10
+  - 12
+  - 14
+  target_sublayer: mlp.gate_proj
+  epsilons:
+  - 0.01
+  - 0.05
+  - 0.1
+  n_cal: 30
+  n_test: 30
+  seeds:
+  - 42
+  - 43
+  - 44
+  probe_seed: 42
+  alpha: 0.001
+  evasion_threshold: 0.5
+  tap_k: 8
+  m_values:
+  - 64
+  - 128
+  - 256
+  - 512
+  - 1024
+reference:
+  exp12_summary: reference/exp12_bf16_summary.json
+output:
+  dir: results/allpos_bf16
+
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  27%|██▋       | 40/146 [00:00<00:00, 386.64it/s]Loading weights:  62%|██████▏   | 90/146 [00:00<00:00, 443.95it/s]Loading weights:  97%|█████████▋| 141/146 [00:00<00:00, 473.52it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 471.06it/s]
+Loaded 80 prompts (requested 80)
+============================================================
+PHASE 1: clean references
+============================================================
+============================================================
+PHASE 2: noise floor
+============================================================
+  {'last': 0.0, 'pos_mean': 0.0, 'pos_max': 0.0, 'kl_last': 0.0, 'tap': 0.0}
+============================================================
+PHASE 3: calibration inputs and adversary subspaces
+============================================================
+  L2: 3114 all-position inputs; leakage ratio by m: 64:4.74e-03, 128:6.55e-03, 256:1.06e-02, 512:2.21e-02, 1024:7.07e-02
+  L6: 3114 all-position inputs; leakage ratio by m: 64:5.44e-03, 128:7.14e-03, 256:1.09e-02, 512:2.08e-02, 1024:5.78e-02
+  L10: 3114 all-position inputs; leakage ratio by m: 64:3.84e-03, 128:5.10e-03, 256:7.88e-03, 512:1.55e-02, 1024:4.63e-02
+  L12: 3114 all-position inputs; leakage ratio by m: 64:3.16e-03, 128:4.17e-03, 256:6.46e-03, 512:1.28e-02, 1024:3.91e-02
+  L14: 3114 all-position inputs; leakage ratio by m: 64:3.36e-03, 128:4.44e-03, 256:6.88e-03, 512:1.35e-02, 1024:4.03e-02
+============================================================
+PHASE 4: edits
+============================================================
+  L2 eps=0.01 seed=42 gaussian      residual_all=6.45e-03 act_next=8.43e-03 tap=1.00e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.01 seed=42 ns_last       residual_all=5.97e-03 act_next=6.53e-03 tap=7.80e-03
+  L2 eps=0.01 seed=42 allpos_m64    residual_all=1.13e-03 act_next=6.55e-03 tap=7.70e-03
+  L2 eps=0.01 seed=42 allpos_m128   residual_all=1.16e-03 act_next=6.35e-03 tap=7.70e-03
+  L2 eps=0.01 seed=42 allpos_m256   residual_all=1.23e-03 act_next=6.54e-03 tap=7.75e-03
+  L2 eps=0.01 seed=42 allpos_m512   residual_all=1.41e-03 act_next=6.41e-03 tap=7.78e-03
+  L2 eps=0.01 seed=42 allpos_m1024  residual_all=1.99e-03 act_next=6.24e-03 tap=7.64e-03
+  L2 eps=0.01 seed=43 gaussian      residual_all=6.46e-03 act_next=8.57e-03 tap=1.01e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.01 seed=43 ns_last       residual_all=5.97e-03 act_next=6.82e-03 tap=7.80e-03
+  L2 eps=0.01 seed=43 allpos_m64    residual_all=1.13e-03 act_next=6.38e-03 tap=7.72e-03
+  L2 eps=0.01 seed=43 allpos_m128   residual_all=1.16e-03 act_next=6.39e-03 tap=7.71e-03
+  L2 eps=0.01 seed=43 allpos_m256   residual_all=1.23e-03 act_next=6.35e-03 tap=7.81e-03
+  L2 eps=0.01 seed=43 allpos_m512   residual_all=1.41e-03 act_next=6.57e-03 tap=7.72e-03
+  L2 eps=0.01 seed=43 allpos_m1024  residual_all=1.99e-03 act_next=6.37e-03 tap=7.71e-03
+  L2 eps=0.01 seed=44 gaussian      residual_all=6.45e-03 act_next=8.99e-03 tap=1.02e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.01 seed=44 ns_last       residual_all=5.97e-03 act_next=6.63e-03 tap=7.86e-03
+  L2 eps=0.01 seed=44 allpos_m64    residual_all=1.13e-03 act_next=6.16e-03 tap=7.70e-03
+  L2 eps=0.01 seed=44 allpos_m128   residual_all=1.16e-03 act_next=6.24e-03 tap=7.65e-03
+  L2 eps=0.01 seed=44 allpos_m256   residual_all=1.23e-03 act_next=6.52e-03 tap=7.82e-03
+  L2 eps=0.01 seed=44 allpos_m512   residual_all=1.41e-03 act_next=6.57e-03 tap=7.71e-03
+  L2 eps=0.01 seed=44 allpos_m1024  residual_all=1.99e-03 act_next=6.33e-03 tap=7.71e-03
+  L2 eps=0.05 seed=42 gaussian      residual_all=3.18e-02 act_next=2.18e-02 tap=4.21e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.05 seed=42 ns_last       residual_all=2.94e-02 act_next=9.34e-03 tap=3.04e-02
+  L2 eps=0.05 seed=42 allpos_m64    residual_all=2.43e-03 act_next=6.29e-03 tap=2.98e-02
+  L2 eps=0.05 seed=42 allpos_m128   residual_all=2.79e-03 act_next=6.49e-03 tap=2.98e-02
+  L2 eps=0.05 seed=42 allpos_m256   residual_all=3.44e-03 act_next=6.29e-03 tap=3.02e-02
+  L2 eps=0.05 seed=42 allpos_m512   residual_all=4.86e-03 act_next=6.72e-03 tap=3.03e-02
+  L2 eps=0.05 seed=42 allpos_m1024  residual_all=8.54e-03 act_next=6.73e-03 tap=2.97e-02
+  L2 eps=0.05 seed=43 gaussian      residual_all=3.18e-02 act_next=2.21e-02 tap=4.25e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.05 seed=43 ns_last       residual_all=2.94e-02 act_next=9.77e-03 tap=3.06e-02
+  L2 eps=0.05 seed=43 allpos_m64    residual_all=2.43e-03 act_next=6.59e-03 tap=3.00e-02
+  L2 eps=0.05 seed=43 allpos_m128   residual_all=2.79e-03 act_next=6.36e-03 tap=2.99e-02
+  L2 eps=0.05 seed=43 allpos_m256   residual_all=3.44e-03 act_next=6.44e-03 tap=3.02e-02
+  L2 eps=0.05 seed=43 allpos_m512   residual_all=4.86e-03 act_next=6.56e-03 tap=3.00e-02
+  L2 eps=0.05 seed=43 allpos_m1024  residual_all=8.54e-03 act_next=7.01e-03 tap=2.99e-02
+  L2 eps=0.05 seed=44 gaussian      residual_all=3.18e-02 act_next=2.33e-02 tap=4.25e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.05 seed=44 ns_last       residual_all=2.94e-02 act_next=9.22e-03 tap=3.08e-02
+  L2 eps=0.05 seed=44 allpos_m64    residual_all=2.43e-03 act_next=6.64e-03 tap=2.99e-02
+  L2 eps=0.05 seed=44 allpos_m128   residual_all=2.79e-03 act_next=6.48e-03 tap=2.97e-02
+  L2 eps=0.05 seed=44 allpos_m256   residual_all=3.44e-03 act_next=6.39e-03 tap=3.06e-02
+  L2 eps=0.05 seed=44 allpos_m512   residual_all=4.86e-03 act_next=6.74e-03 tap=3.00e-02
+  L2 eps=0.05 seed=44 allpos_m1024  residual_all=8.54e-03 act_next=6.91e-03 tap=2.99e-02
+  L2 eps=0.1 seed=42 gaussian      residual_all=6.36e-02 act_next=4.05e-02 tap=8.35e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.1 seed=42 ns_last       residual_all=5.88e-02 act_next=1.43e-02 tap=6.00e-02
+  L2 eps=0.1 seed=42 allpos_m64    residual_all=4.52e-03 act_next=6.54e-03 tap=5.88e-02
+  L2 eps=0.1 seed=42 allpos_m128   residual_all=5.27e-03 act_next=6.58e-03 tap=5.89e-02
+  L2 eps=0.1 seed=42 allpos_m256   residual_all=6.64e-03 act_next=6.89e-03 tap=5.97e-02
+  L2 eps=0.1 seed=42 allpos_m512   residual_all=9.54e-03 act_next=6.95e-03 tap=5.99e-02
+  L2 eps=0.1 seed=42 allpos_m1024  residual_all=1.70e-02 act_next=7.55e-03 tap=5.87e-02
+  L2 eps=0.1 seed=43 gaussian      residual_all=6.37e-02 act_next=4.16e-02 tap=8.44e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.1 seed=43 ns_last       residual_all=5.88e-02 act_next=1.45e-02 tap=6.04e-02
+  L2 eps=0.1 seed=43 allpos_m64    residual_all=4.52e-03 act_next=6.83e-03 tap=5.94e-02
+  L2 eps=0.1 seed=43 allpos_m128   residual_all=5.27e-03 act_next=6.54e-03 tap=5.90e-02
+  L2 eps=0.1 seed=43 allpos_m256   residual_all=6.63e-03 act_next=6.83e-03 tap=5.98e-02
+  L2 eps=0.1 seed=43 allpos_m512   residual_all=9.54e-03 act_next=6.94e-03 tap=5.92e-02
+  L2 eps=0.1 seed=43 allpos_m1024  residual_all=1.70e-02 act_next=7.59e-03 tap=5.90e-02
+  L2 eps=0.1 seed=44 gaussian      residual_all=6.36e-02 act_next=4.35e-02 tap=8.44e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.1 seed=44 ns_last       residual_all=5.88e-02 act_next=1.41e-02 tap=6.08e-02
+  L2 eps=0.1 seed=44 allpos_m64    residual_all=4.52e-03 act_next=6.76e-03 tap=5.91e-02
+  L2 eps=0.1 seed=44 allpos_m128   residual_all=5.27e-03 act_next=6.56e-03 tap=5.87e-02
+  L2 eps=0.1 seed=44 allpos_m256   residual_all=6.63e-03 act_next=6.88e-03 tap=6.06e-02
+  L2 eps=0.1 seed=44 allpos_m512   residual_all=9.54e-03 act_next=7.09e-03 tap=5.94e-02
+  L2 eps=0.1 seed=44 allpos_m1024  residual_all=1.70e-02 act_next=7.73e-03 tap=5.90e-02
+  L6 eps=0.01 seed=42 gaussian      residual_all=5.17e-03 act_next=8.43e-03 tap=9.37e-03
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.01 seed=42 ns_last       residual_all=4.54e-03 act_next=6.03e-03 tap=7.52e-03
+  L6 eps=0.01 seed=42 allpos_m64    residual_all=9.16e-04 act_next=5.68e-03 tap=7.27e-03
+  L6 eps=0.01 seed=42 allpos_m128   residual_all=9.35e-04 act_next=5.82e-03 tap=7.42e-03
+  L6 eps=0.01 seed=42 allpos_m256   residual_all=9.85e-04 act_next=5.74e-03 tap=7.35e-03
+  L6 eps=0.01 seed=42 allpos_m512   residual_all=1.11e-03 act_next=5.90e-03 tap=7.33e-03
+  L6 eps=0.01 seed=42 allpos_m1024  residual_all=1.48e-03 act_next=5.81e-03 tap=7.41e-03
+  L6 eps=0.01 seed=43 gaussian      residual_all=5.17e-03 act_next=8.27e-03 tap=9.44e-03
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.01 seed=43 ns_last       residual_all=4.55e-03 act_next=5.99e-03 tap=7.48e-03
+  L6 eps=0.01 seed=43 allpos_m64    residual_all=9.17e-04 act_next=5.79e-03 tap=7.25e-03
+  L6 eps=0.01 seed=43 allpos_m128   residual_all=9.36e-04 act_next=5.85e-03 tap=7.41e-03
+  L6 eps=0.01 seed=43 allpos_m256   residual_all=9.89e-04 act_next=5.66e-03 tap=7.39e-03
+  L6 eps=0.01 seed=43 allpos_m512   residual_all=1.11e-03 act_next=5.70e-03 tap=7.38e-03
+  L6 eps=0.01 seed=43 allpos_m1024  residual_all=1.48e-03 act_next=5.77e-03 tap=7.38e-03
+  L6 eps=0.01 seed=44 gaussian      residual_all=5.17e-03 act_next=8.48e-03 tap=9.45e-03
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.01 seed=44 ns_last       residual_all=4.55e-03 act_next=6.07e-03 tap=7.55e-03
+  L6 eps=0.01 seed=44 allpos_m64    residual_all=9.17e-04 act_next=5.84e-03 tap=7.24e-03
+  L6 eps=0.01 seed=44 allpos_m128   residual_all=9.34e-04 act_next=5.61e-03 tap=7.34e-03
+  L6 eps=0.01 seed=44 allpos_m256   residual_all=9.89e-04 act_next=5.85e-03 tap=7.41e-03
+  L6 eps=0.01 seed=44 allpos_m512   residual_all=1.11e-03 act_next=5.85e-03 tap=7.41e-03
+  L6 eps=0.01 seed=44 allpos_m1024  residual_all=1.48e-03 act_next=5.82e-03 tap=7.43e-03
+  L6 eps=0.05 seed=42 gaussian      residual_all=2.55e-02 act_next=2.48e-02 tap=3.91e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.05 seed=42 ns_last       residual_all=2.24e-02 act_next=8.38e-03 tap=3.00e-02
+  L6 eps=0.05 seed=42 allpos_m64    residual_all=2.06e-03 act_next=5.86e-03 tap=2.85e-02
+  L6 eps=0.05 seed=42 allpos_m128   residual_all=2.31e-03 act_next=5.86e-03 tap=2.93e-02
+  L6 eps=0.05 seed=42 allpos_m256   residual_all=2.79e-03 act_next=5.92e-03 tap=2.89e-02
+  L6 eps=0.05 seed=42 allpos_m512   residual_all=3.77e-03 act_next=6.02e-03 tap=2.88e-02
+  L6 eps=0.05 seed=42 allpos_m1024  residual_all=6.19e-03 act_next=6.07e-03 tap=2.94e-02
+  L6 eps=0.05 seed=43 gaussian      residual_all=2.54e-02 act_next=2.43e-02 tap=3.94e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.05 seed=43 ns_last       residual_all=2.24e-02 act_next=8.28e-03 tap=2.99e-02
+  L6 eps=0.05 seed=43 allpos_m64    residual_all=2.06e-03 act_next=5.97e-03 tap=2.84e-02
+  L6 eps=0.05 seed=43 allpos_m128   residual_all=2.31e-03 act_next=5.80e-03 tap=2.92e-02
+  L6 eps=0.05 seed=43 allpos_m256   residual_all=2.79e-03 act_next=5.93e-03 tap=2.91e-02
+  L6 eps=0.05 seed=43 allpos_m512   residual_all=3.77e-03 act_next=5.95e-03 tap=2.94e-02
+  L6 eps=0.05 seed=43 allpos_m1024  residual_all=6.19e-03 act_next=6.13e-03 tap=2.91e-02
+  L6 eps=0.05 seed=44 gaussian      residual_all=2.55e-02 act_next=2.61e-02 tap=3.95e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.05 seed=44 ns_last       residual_all=2.24e-02 act_next=8.20e-03 tap=3.02e-02
+  L6 eps=0.05 seed=44 allpos_m64    residual_all=2.06e-03 act_next=5.90e-03 tap=2.83e-02
+  L6 eps=0.05 seed=44 allpos_m128   residual_all=2.31e-03 act_next=5.86e-03 tap=2.89e-02
+  L6 eps=0.05 seed=44 allpos_m256   residual_all=2.79e-03 act_next=5.81e-03 tap=2.94e-02
+  L6 eps=0.05 seed=44 allpos_m512   residual_all=3.77e-03 act_next=5.95e-03 tap=2.93e-02
+  L6 eps=0.05 seed=44 allpos_m1024  residual_all=6.19e-03 act_next=6.08e-03 tap=2.94e-02
+  L6 eps=0.1 seed=42 gaussian      residual_all=5.09e-02 act_next=4.79e-02 tap=7.76e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.1 seed=42 ns_last       residual_all=4.47e-02 act_next=1.27e-02 tap=5.95e-02
+  L6 eps=0.1 seed=42 allpos_m64    residual_all=3.86e-03 act_next=5.96e-03 tap=5.64e-02
+  L6 eps=0.1 seed=42 allpos_m128   residual_all=4.39e-03 act_next=6.06e-03 tap=5.78e-02
+  L6 eps=0.1 seed=42 allpos_m256   residual_all=5.39e-03 act_next=6.04e-03 tap=5.71e-02
+  L6 eps=0.1 seed=42 allpos_m512   residual_all=7.40e-03 act_next=6.31e-03 tap=5.69e-02
+  L6 eps=0.1 seed=42 allpos_m1024  residual_all=1.23e-02 act_next=6.71e-03 tap=5.81e-02
+  L6 eps=0.1 seed=43 gaussian      residual_all=5.09e-02 act_next=4.71e-02 tap=7.82e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.1 seed=43 ns_last       residual_all=4.47e-02 act_next=1.26e-02 tap=5.91e-02
+  L6 eps=0.1 seed=43 allpos_m64    residual_all=3.86e-03 act_next=6.12e-03 tap=5.62e-02
+  L6 eps=0.1 seed=43 allpos_m128   residual_all=4.39e-03 act_next=5.90e-03 tap=5.78e-02
+  L6 eps=0.1 seed=43 allpos_m256   residual_all=5.39e-03 act_next=6.17e-03 tap=5.76e-02
+  L6 eps=0.1 seed=43 allpos_m512   residual_all=7.40e-03 act_next=6.26e-03 tap=5.81e-02
+  L6 eps=0.1 seed=43 allpos_m1024  residual_all=1.23e-02 act_next=6.74e-03 tap=5.76e-02
+  L6 eps=0.1 seed=44 gaussian      residual_all=5.09e-02 act_next=5.06e-02 tap=7.83e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.1 seed=44 ns_last       residual_all=4.47e-02 act_next=1.23e-02 tap=5.98e-02
+  L6 eps=0.1 seed=44 allpos_m64    residual_all=3.86e-03 act_next=6.04e-03 tap=5.60e-02
+  L6 eps=0.1 seed=44 allpos_m128   residual_all=4.39e-03 act_next=5.93e-03 tap=5.73e-02
+  L6 eps=0.1 seed=44 allpos_m256   residual_all=5.39e-03 act_next=6.21e-03 tap=5.81e-02
+  L6 eps=0.1 seed=44 allpos_m512   residual_all=7.40e-03 act_next=6.19e-03 tap=5.81e-02
+  L6 eps=0.1 seed=44 allpos_m1024  residual_all=1.23e-02 act_next=6.69e-03 tap=5.83e-02
+  L10 eps=0.01 seed=42 gaussian      residual_all=5.18e-03 act_next=6.49e-03 tap=9.08e-03
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.01 seed=42 ns_last       residual_all=4.51e-03 act_next=4.35e-03 tap=7.16e-03
+  L10 eps=0.01 seed=42 allpos_m64    residual_all=8.88e-04 act_next=4.28e-03 tap=7.24e-03
+  L10 eps=0.01 seed=42 allpos_m128   residual_all=9.10e-04 act_next=4.27e-03 tap=7.11e-03
+  L10 eps=0.01 seed=42 allpos_m256   residual_all=9.44e-04 act_next=4.28e-03 tap=7.16e-03
+  L10 eps=0.01 seed=42 allpos_m512   residual_all=1.05e-03 act_next=4.39e-03 tap=7.17e-03
+  L10 eps=0.01 seed=42 allpos_m1024  residual_all=1.38e-03 act_next=4.40e-03 tap=7.18e-03
+  L10 eps=0.01 seed=43 gaussian      residual_all=5.17e-03 act_next=6.53e-03 tap=9.04e-03
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.01 seed=43 ns_last       residual_all=4.52e-03 act_next=4.43e-03 tap=7.18e-03
+  L10 eps=0.01 seed=43 allpos_m64    residual_all=8.88e-04 act_next=4.49e-03 tap=7.20e-03
+  L10 eps=0.01 seed=43 allpos_m128   residual_all=9.04e-04 act_next=4.35e-03 tap=7.22e-03
+  L10 eps=0.01 seed=43 allpos_m256   residual_all=9.44e-04 act_next=4.18e-03 tap=7.04e-03
+  L10 eps=0.01 seed=43 allpos_m512   residual_all=1.05e-03 act_next=4.28e-03 tap=7.14e-03
+  L10 eps=0.01 seed=43 allpos_m1024  residual_all=1.37e-03 act_next=4.36e-03 tap=7.16e-03
+  L10 eps=0.01 seed=44 gaussian      residual_all=5.19e-03 act_next=6.51e-03 tap=9.15e-03
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.01 seed=44 ns_last       residual_all=4.51e-03 act_next=4.40e-03 tap=7.19e-03
+  L10 eps=0.01 seed=44 allpos_m64    residual_all=8.87e-04 act_next=4.38e-03 tap=7.11e-03
+  L10 eps=0.01 seed=44 allpos_m128   residual_all=9.05e-04 act_next=4.42e-03 tap=7.12e-03
+  L10 eps=0.01 seed=44 allpos_m256   residual_all=9.46e-04 act_next=4.37e-03 tap=7.10e-03
+  L10 eps=0.01 seed=44 allpos_m512   residual_all=1.04e-03 act_next=4.35e-03 tap=7.09e-03
+  L10 eps=0.01 seed=44 allpos_m1024  residual_all=1.38e-03 act_next=4.41e-03 tap=7.18e-03
+  L10 eps=0.05 seed=42 gaussian      residual_all=2.56e-02 act_next=1.98e-02 tap=3.78e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.05 seed=42 ns_last       residual_all=2.22e-02 act_next=5.22e-03 tap=2.84e-02
+  L10 eps=0.05 seed=42 allpos_m64    residual_all=1.79e-03 act_next=4.28e-03 tap=2.88e-02
+  L10 eps=0.05 seed=42 allpos_m128   residual_all=2.01e-03 act_next=4.52e-03 tap=2.80e-02
+  L10 eps=0.05 seed=42 allpos_m256   residual_all=2.42e-03 act_next=4.33e-03 tap=2.83e-02
+  L10 eps=0.05 seed=42 allpos_m512   residual_all=3.29e-03 act_next=4.37e-03 tap=2.83e-02
+  L10 eps=0.05 seed=42 allpos_m1024  residual_all=5.56e-03 act_next=4.38e-03 tap=2.84e-02
+  L10 eps=0.05 seed=43 gaussian      residual_all=2.56e-02 act_next=1.92e-02 tap=3.79e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.05 seed=43 ns_last       residual_all=2.22e-02 act_next=5.17e-03 tap=2.84e-02
+  L10 eps=0.05 seed=43 allpos_m64    residual_all=1.79e-03 act_next=4.37e-03 tap=2.86e-02
+  L10 eps=0.05 seed=43 allpos_m128   residual_all=2.01e-03 act_next=4.31e-03 tap=2.87e-02
+  L10 eps=0.05 seed=43 allpos_m256   residual_all=2.42e-03 act_next=4.27e-03 tap=2.77e-02
+  L10 eps=0.05 seed=43 allpos_m512   residual_all=3.30e-03 act_next=4.49e-03 tap=2.82e-02
+  L10 eps=0.05 seed=43 allpos_m1024  residual_all=5.56e-03 act_next=4.50e-03 tap=2.84e-02
+  L10 eps=0.05 seed=44 gaussian      residual_all=2.57e-02 act_next=1.91e-02 tap=3.82e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.05 seed=44 ns_last       residual_all=2.22e-02 act_next=5.18e-03 tap=2.86e-02
+  L10 eps=0.05 seed=44 allpos_m64    residual_all=1.79e-03 act_next=4.33e-03 tap=2.81e-02
+  L10 eps=0.05 seed=44 allpos_m128   residual_all=2.01e-03 act_next=4.42e-03 tap=2.82e-02
+  L10 eps=0.05 seed=44 allpos_m256   residual_all=2.42e-03 act_next=4.30e-03 tap=2.79e-02
+  L10 eps=0.05 seed=44 allpos_m512   residual_all=3.29e-03 act_next=4.40e-03 tap=2.80e-02
+  L10 eps=0.05 seed=44 allpos_m1024  residual_all=5.56e-03 act_next=4.53e-03 tap=2.85e-02
+  L10 eps=0.1 seed=42 gaussian      residual_all=5.12e-02 act_next=3.81e-02 tap=7.50e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.1 seed=42 ns_last       residual_all=4.44e-02 act_next=6.49e-03 tap=5.62e-02
+  L10 eps=0.1 seed=42 allpos_m64    residual_all=3.28e-03 act_next=4.41e-03 tap=5.71e-02
+  L10 eps=0.1 seed=42 allpos_m128   residual_all=3.75e-03 act_next=4.51e-03 tap=5.54e-02
+  L10 eps=0.1 seed=42 allpos_m256   residual_all=4.62e-03 act_next=4.58e-03 tap=5.61e-02
+  L10 eps=0.1 seed=42 allpos_m512   residual_all=6.43e-03 act_next=4.48e-03 tap=5.60e-02
+  L10 eps=0.1 seed=42 allpos_m1024  residual_all=1.10e-02 act_next=4.73e-03 tap=5.61e-02
+  L10 eps=0.1 seed=43 gaussian      residual_all=5.11e-02 act_next=3.71e-02 tap=7.52e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.1 seed=43 ns_last       residual_all=4.44e-02 act_next=6.53e-03 tap=5.62e-02
+  L10 eps=0.1 seed=43 allpos_m64    residual_all=3.28e-03 act_next=4.54e-03 tap=5.65e-02
+  L10 eps=0.1 seed=43 allpos_m128   residual_all=3.75e-03 act_next=4.37e-03 tap=5.67e-02
+  L10 eps=0.1 seed=43 allpos_m256   residual_all=4.61e-03 act_next=4.48e-03 tap=5.48e-02
+  L10 eps=0.1 seed=43 allpos_m512   residual_all=6.43e-03 act_next=4.47e-03 tap=5.59e-02
+  L10 eps=0.1 seed=43 allpos_m1024  residual_all=1.10e-02 act_next=4.70e-03 tap=5.63e-02
+  L10 eps=0.1 seed=44 gaussian      residual_all=5.13e-02 act_next=3.67e-02 tap=7.59e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.1 seed=44 ns_last       residual_all=4.44e-02 act_next=6.62e-03 tap=5.66e-02
+  L10 eps=0.1 seed=44 allpos_m64    residual_all=3.28e-03 act_next=4.49e-03 tap=5.55e-02
+  L10 eps=0.1 seed=44 allpos_m128   residual_all=3.75e-03 act_next=4.36e-03 tap=5.57e-02
+  L10 eps=0.1 seed=44 allpos_m256   residual_all=4.62e-03 act_next=4.43e-03 tap=5.52e-02
+  L10 eps=0.1 seed=44 allpos_m512   residual_all=6.43e-03 act_next=4.49e-03 tap=5.53e-02
+  L10 eps=0.1 seed=44 allpos_m1024  residual_all=1.10e-02 act_next=4.66e-03 tap=5.64e-02
+  L12 eps=0.01 seed=42 gaussian      residual_all=6.93e-03 act_next=5.89e-03 tap=7.15e-03
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.01 seed=42 ns_last       residual_all=5.94e-03 act_next=4.08e-03 tap=5.46e-03
+  L12 eps=0.01 seed=42 allpos_m64    residual_all=1.17e-03 act_next=4.19e-03 tap=5.34e-03
+  L12 eps=0.01 seed=42 allpos_m128   residual_all=1.19e-03 act_next=3.99e-03 tap=5.40e-03
+  L12 eps=0.01 seed=42 allpos_m256   residual_all=1.24e-03 act_next=3.94e-03 tap=5.43e-03
+  L12 eps=0.01 seed=42 allpos_m512   residual_all=1.35e-03 act_next=4.19e-03 tap=5.44e-03
+  L12 eps=0.01 seed=42 allpos_m1024  residual_all=1.75e-03 act_next=4.06e-03 tap=5.42e-03
+  L12 eps=0.01 seed=43 gaussian      residual_all=6.93e-03 act_next=5.81e-03 tap=7.12e-03
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.01 seed=43 ns_last       residual_all=5.94e-03 act_next=4.16e-03 tap=5.43e-03
+  L12 eps=0.01 seed=43 allpos_m64    residual_all=1.17e-03 act_next=4.07e-03 tap=5.34e-03
+  L12 eps=0.01 seed=43 allpos_m128   residual_all=1.20e-03 act_next=4.05e-03 tap=5.39e-03
+  L12 eps=0.01 seed=43 allpos_m256   residual_all=1.24e-03 act_next=4.04e-03 tap=5.49e-03
+  L12 eps=0.01 seed=43 allpos_m512   residual_all=1.35e-03 act_next=4.06e-03 tap=5.43e-03
+  L12 eps=0.01 seed=43 allpos_m1024  residual_all=1.76e-03 act_next=4.11e-03 tap=5.46e-03
+  L12 eps=0.01 seed=44 gaussian      residual_all=6.94e-03 act_next=5.64e-03 tap=7.18e-03
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.01 seed=44 ns_last       residual_all=5.94e-03 act_next=4.13e-03 tap=5.47e-03
+  L12 eps=0.01 seed=44 allpos_m64    residual_all=1.17e-03 act_next=4.01e-03 tap=5.33e-03
+  L12 eps=0.01 seed=44 allpos_m128   residual_all=1.20e-03 act_next=4.08e-03 tap=5.41e-03
+  L12 eps=0.01 seed=44 allpos_m256   residual_all=1.24e-03 act_next=3.94e-03 tap=5.44e-03
+  L12 eps=0.01 seed=44 allpos_m512   residual_all=1.36e-03 act_next=4.04e-03 tap=5.45e-03
+  L12 eps=0.01 seed=44 allpos_m1024  residual_all=1.75e-03 act_next=4.05e-03 tap=5.43e-03
+  L12 eps=0.05 seed=42 gaussian      residual_all=3.42e-02 act_next=1.66e-02 tap=2.96e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.05 seed=42 ns_last       residual_all=2.92e-02 act_next=4.78e-03 tap=2.05e-02
+  L12 eps=0.05 seed=42 allpos_m64    residual_all=2.24e-03 act_next=4.09e-03 tap=1.98e-02
+  L12 eps=0.05 seed=42 allpos_m128   residual_all=2.49e-03 act_next=4.00e-03 tap=2.03e-02
+  L12 eps=0.05 seed=42 allpos_m256   residual_all=2.99e-03 act_next=4.01e-03 tap=2.04e-02
+  L12 eps=0.05 seed=42 allpos_m512   residual_all=4.05e-03 act_next=3.99e-03 tap=2.04e-02
+  L12 eps=0.05 seed=42 allpos_m1024  residual_all=6.89e-03 act_next=4.21e-03 tap=2.04e-02
+  L12 eps=0.05 seed=43 gaussian      residual_all=3.42e-02 act_next=1.67e-02 tap=2.94e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.05 seed=43 ns_last       residual_all=2.92e-02 act_next=4.75e-03 tap=2.05e-02
+  L12 eps=0.05 seed=43 allpos_m64    residual_all=2.24e-03 act_next=4.04e-03 tap=1.98e-02
+  L12 eps=0.05 seed=43 allpos_m128   residual_all=2.49e-03 act_next=4.05e-03 tap=2.02e-02
+  L12 eps=0.05 seed=43 allpos_m256   residual_all=2.99e-03 act_next=4.09e-03 tap=2.08e-02
+  L12 eps=0.05 seed=43 allpos_m512   residual_all=4.05e-03 act_next=4.07e-03 tap=2.05e-02
+  L12 eps=0.05 seed=43 allpos_m1024  residual_all=6.89e-03 act_next=4.20e-03 tap=2.05e-02
+  L12 eps=0.05 seed=44 gaussian      residual_all=3.42e-02 act_next=1.62e-02 tap=2.97e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.05 seed=44 ns_last       residual_all=2.92e-02 act_next=4.73e-03 tap=2.07e-02
+  L12 eps=0.05 seed=44 allpos_m64    residual_all=2.24e-03 act_next=4.04e-03 tap=1.98e-02
+  L12 eps=0.05 seed=44 allpos_m128   residual_all=2.49e-03 act_next=4.02e-03 tap=2.03e-02
+  L12 eps=0.05 seed=44 allpos_m256   residual_all=2.98e-03 act_next=4.04e-03 tap=2.05e-02
+  L12 eps=0.05 seed=44 allpos_m512   residual_all=4.05e-03 act_next=4.10e-03 tap=2.05e-02
+  L12 eps=0.05 seed=44 allpos_m1024  residual_all=6.89e-03 act_next=4.20e-03 tap=2.04e-02
+  L12 eps=0.1 seed=42 gaussian      residual_all=6.83e-02 act_next=3.19e-02 tap=5.87e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.1 seed=42 ns_last       residual_all=5.84e-02 act_next=6.09e-03 tap=4.05e-02
+  L12 eps=0.1 seed=42 allpos_m64    residual_all=4.03e-03 act_next=4.16e-03 tap=3.91e-02
+  L12 eps=0.1 seed=42 allpos_m128   residual_all=4.59e-03 act_next=4.07e-03 tap=4.01e-02
+  L12 eps=0.1 seed=42 allpos_m256   residual_all=5.65e-03 act_next=4.11e-03 tap=4.03e-02
+  L12 eps=0.1 seed=42 allpos_m512   residual_all=7.87e-03 act_next=4.23e-03 tap=4.03e-02
+  L12 eps=0.1 seed=42 allpos_m1024  residual_all=1.36e-02 act_next=4.27e-03 tap=4.02e-02
+  L12 eps=0.1 seed=43 gaussian      residual_all=6.83e-02 act_next=3.20e-02 tap=5.83e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.1 seed=43 ns_last       residual_all=5.84e-02 act_next=6.07e-03 tap=4.03e-02
+  L12 eps=0.1 seed=43 allpos_m64    residual_all=4.03e-03 act_next=3.95e-03 tap=3.91e-02
+  L12 eps=0.1 seed=43 allpos_m128   residual_all=4.59e-03 act_next=4.24e-03 tap=3.97e-02
+  L12 eps=0.1 seed=43 allpos_m256   residual_all=5.64e-03 act_next=3.95e-03 tap=4.11e-02
+  L12 eps=0.1 seed=43 allpos_m512   residual_all=7.87e-03 act_next=4.14e-03 tap=4.04e-02
+  L12 eps=0.1 seed=43 allpos_m1024  residual_all=1.36e-02 act_next=4.36e-03 tap=4.05e-02
+  L12 eps=0.1 seed=44 gaussian      residual_all=6.85e-02 act_next=3.11e-02 tap=5.89e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.1 seed=44 ns_last       residual_all=5.83e-02 act_next=6.29e-03 tap=4.08e-02
+  L12 eps=0.1 seed=44 allpos_m64    residual_all=4.03e-03 act_next=4.09e-03 tap=3.90e-02
+  L12 eps=0.1 seed=44 allpos_m128   residual_all=4.59e-03 act_next=4.09e-03 tap=4.01e-02
+  L12 eps=0.1 seed=44 allpos_m256   residual_all=5.64e-03 act_next=4.31e-03 tap=4.04e-02
+  L12 eps=0.1 seed=44 allpos_m512   residual_all=7.87e-03 act_next=4.13e-03 tap=4.05e-02
+  L12 eps=0.1 seed=44 allpos_m1024  residual_all=1.36e-02 act_next=4.21e-03 tap=4.02e-02
+  L14 eps=0.01 seed=42 gaussian      residual_all=6.80e-03 act_next=6.27e-03 tap=5.77e-03
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.01 seed=42 ns_last       residual_all=5.78e-03 act_next=4.76e-03 tap=4.69e-03
+  L14 eps=0.01 seed=42 allpos_m64    residual_all=1.16e-03 act_next=4.82e-03 tap=4.92e-03
+  L14 eps=0.01 seed=42 allpos_m128   residual_all=1.19e-03 act_next=4.75e-03 tap=4.69e-03
+  L14 eps=0.01 seed=42 allpos_m256   residual_all=1.23e-03 act_next=4.71e-03 tap=4.58e-03
+  L14 eps=0.01 seed=42 allpos_m512   residual_all=1.35e-03 act_next=4.63e-03 tap=4.59e-03
+  L14 eps=0.01 seed=42 allpos_m1024  residual_all=1.74e-03 act_next=4.65e-03 tap=4.70e-03
+  L14 eps=0.01 seed=43 gaussian      residual_all=6.80e-03 act_next=6.21e-03 tap=5.73e-03
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.01 seed=43 ns_last       residual_all=5.77e-03 act_next=4.81e-03 tap=4.59e-03
+  L14 eps=0.01 seed=43 allpos_m64    residual_all=1.17e-03 act_next=4.57e-03 tap=4.94e-03
+  L14 eps=0.01 seed=43 allpos_m128   residual_all=1.19e-03 act_next=4.72e-03 tap=4.59e-03
+  L14 eps=0.01 seed=43 allpos_m256   residual_all=1.23e-03 act_next=4.84e-03 tap=4.57e-03
+  L14 eps=0.01 seed=43 allpos_m512   residual_all=1.35e-03 act_next=4.67e-03 tap=4.63e-03
+  L14 eps=0.01 seed=43 allpos_m1024  residual_all=1.74e-03 act_next=4.72e-03 tap=4.60e-03
+  L14 eps=0.01 seed=44 gaussian      residual_all=6.81e-03 act_next=6.15e-03 tap=5.64e-03
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.01 seed=44 ns_last       residual_all=5.77e-03 act_next=4.90e-03 tap=4.56e-03
+  L14 eps=0.01 seed=44 allpos_m64    residual_all=1.17e-03 act_next=4.55e-03 tap=4.83e-03
+  L14 eps=0.01 seed=44 allpos_m128   residual_all=1.19e-03 act_next=4.67e-03 tap=4.57e-03
+  L14 eps=0.01 seed=44 allpos_m256   residual_all=1.23e-03 act_next=4.79e-03 tap=4.60e-03
+  L14 eps=0.01 seed=44 allpos_m512   residual_all=1.35e-03 act_next=4.85e-03 tap=4.73e-03
+  L14 eps=0.01 seed=44 allpos_m1024  residual_all=1.74e-03 act_next=4.92e-03 tap=4.61e-03
+  L14 eps=0.05 seed=42 gaussian      residual_all=3.36e-02 act_next=1.44e-02 tap=2.33e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.05 seed=42 ns_last       residual_all=2.84e-02 act_next=5.40e-03 tap=1.78e-02
+  L14 eps=0.05 seed=42 allpos_m64    residual_all=2.25e-03 act_next=4.63e-03 tap=1.91e-02
+  L14 eps=0.05 seed=42 allpos_m128   residual_all=2.50e-03 act_next=4.83e-03 tap=1.76e-02
+  L14 eps=0.05 seed=42 allpos_m256   residual_all=3.00e-03 act_next=4.78e-03 tap=1.69e-02
+  L14 eps=0.05 seed=42 allpos_m512   residual_all=4.06e-03 act_next=4.75e-03 tap=1.69e-02
+  L14 eps=0.05 seed=42 allpos_m1024  residual_all=6.83e-03 act_next=4.93e-03 tap=1.77e-02
+  L14 eps=0.05 seed=43 gaussian      residual_all=3.36e-02 act_next=1.43e-02 tap=2.32e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.05 seed=43 ns_last       residual_all=2.84e-02 act_next=5.48e-03 tap=1.72e-02
+  L14 eps=0.05 seed=43 allpos_m64    residual_all=2.25e-03 act_next=4.72e-03 tap=1.93e-02
+  L14 eps=0.05 seed=43 allpos_m128   residual_all=2.50e-03 act_next=4.58e-03 tap=1.69e-02
+  L14 eps=0.05 seed=43 allpos_m256   residual_all=3.00e-03 act_next=4.92e-03 tap=1.69e-02
+  L14 eps=0.05 seed=43 allpos_m512   residual_all=4.06e-03 act_next=4.82e-03 tap=1.72e-02
+  L14 eps=0.05 seed=43 allpos_m1024  residual_all=6.83e-03 act_next=4.96e-03 tap=1.73e-02
+  L14 eps=0.05 seed=44 gaussian      residual_all=3.36e-02 act_next=1.46e-02 tap=2.25e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.05 seed=44 ns_last       residual_all=2.84e-02 act_next=5.34e-03 tap=1.70e-02
+  L14 eps=0.05 seed=44 allpos_m64    residual_all=2.24e-03 act_next=4.93e-03 tap=1.88e-02
+  L14 eps=0.05 seed=44 allpos_m128   residual_all=2.50e-03 act_next=4.74e-03 tap=1.69e-02
+  L14 eps=0.05 seed=44 allpos_m256   residual_all=3.00e-03 act_next=4.73e-03 tap=1.72e-02
+  L14 eps=0.05 seed=44 allpos_m512   residual_all=4.06e-03 act_next=4.91e-03 tap=1.80e-02
+  L14 eps=0.05 seed=44 allpos_m1024  residual_all=6.83e-03 act_next=4.69e-03 tap=1.72e-02
+  L14 eps=0.1 seed=42 gaussian      residual_all=6.72e-02 act_next=2.68e-02 tap=4.62e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.1 seed=42 ns_last       residual_all=5.68e-02 act_next=6.27e-03 tap=3.50e-02
+  L14 eps=0.1 seed=42 allpos_m64    residual_all=4.05e-03 act_next=4.94e-03 tap=3.78e-02
+  L14 eps=0.1 seed=42 allpos_m128   residual_all=4.62e-03 act_next=4.78e-03 tap=3.47e-02
+  L14 eps=0.1 seed=42 allpos_m256   residual_all=5.68e-03 act_next=4.89e-03 tap=3.33e-02
+  L14 eps=0.1 seed=42 allpos_m512   residual_all=7.89e-03 act_next=4.78e-03 tap=3.32e-02
+  L14 eps=0.1 seed=42 allpos_m1024  residual_all=1.35e-02 act_next=4.73e-03 tap=3.50e-02
+  L14 eps=0.1 seed=43 gaussian      residual_all=6.71e-02 act_next=2.65e-02 tap=4.60e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.1 seed=43 ns_last       residual_all=5.67e-02 act_next=6.49e-03 tap=3.38e-02
+  L14 eps=0.1 seed=43 allpos_m64    residual_all=4.05e-03 act_next=5.02e-03 tap=3.81e-02
+  L14 eps=0.1 seed=43 allpos_m128   residual_all=4.61e-03 act_next=4.99e-03 tap=3.33e-02
+  L14 eps=0.1 seed=43 allpos_m256   residual_all=5.68e-03 act_next=4.64e-03 tap=3.31e-02
+  L14 eps=0.1 seed=43 allpos_m512   residual_all=7.89e-03 act_next=4.80e-03 tap=3.39e-02
+  L14 eps=0.1 seed=43 allpos_m1024  residual_all=1.35e-02 act_next=4.92e-03 tap=3.40e-02
+  L14 eps=0.1 seed=44 gaussian      residual_all=6.72e-02 act_next=2.68e-02 tap=4.46e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.1 seed=44 ns_last       residual_all=5.67e-02 act_next=6.41e-03 tap=3.33e-02
+  L14 eps=0.1 seed=44 allpos_m64    residual_all=4.05e-03 act_next=4.58e-03 tap=3.71e-02
+  L14 eps=0.1 seed=44 allpos_m128   residual_all=4.62e-03 act_next=4.77e-03 tap=3.32e-02
+  L14 eps=0.1 seed=44 allpos_m256   residual_all=5.68e-03 act_next=4.75e-03 tap=3.38e-02
+  L14 eps=0.1 seed=44 allpos_m512   residual_all=7.89e-03 act_next=4.81e-03 tap=3.54e-02
+  L14 eps=0.1 seed=44 allpos_m1024  residual_all=1.35e-02 act_next=4.85e-03 tap=3.39e-02
+============================================================
+PHASE 5: analysis
+============================================================
+
+  Every-layer activation audit vs tap test (calibration prompts unless noted)
+  attack          n | audit evaded med min supp med supp@next | held-out evaded | tap rejects med tap kept | med KL ns/g cal/held
+  -------------------------------------------------------------------------------------------------------------------------------
+  ns_last        45 |    12/45            26.4%         65.1% |        0/45     |    45/45           75.6% |     0.690/0.864     
+  allpos_m64     45 |    18/45            45.7%         75.4% |        0/45     |    45/45           75.0% |     0.611/0.772     
+  allpos_m128    45 |    17/45            44.7%         75.8% |        0/45     |    45/45           74.5% |     0.623/0.697     
+  allpos_m256    45 |    18/45            45.9%         75.6% |        0/45     |    45/45           73.8% |     0.609/0.744     
+  allpos_m512    45 |    17/45            45.9%         75.5% |        0/45     |    45/45           74.3% |     0.612/0.706     
+  allpos_m1024   45 |    17/45            45.3%         74.7% |        0/45     |    45/45           74.9% |     0.648/0.705     
+
+  Reproduction of exp12 (gaussian and ns_last, every layer): max relative difference 2.33e-07
+
+  Saved results to results/allpos_bf16
+  Runtime: 16.8 min
+-- float32 run (near-exact arithmetic) --
+================================================================================
+EXPERIMENT 13: ADAPTIVE ALL-POSITION ADVERSARY
+================================================================================
+model:
+  name: meta-llama/Llama-3.2-1B
+  dtype: float32
+  attn_implementation: eager
+  use_cache: false
+  device: cuda
+data:
+  dataset: Salesforce/wikitext
+  subset: wikitext-103-v1
+  split: test
+  num_prompts: 80
+  max_length: 128
+  min_length: 32
+experiment:
+  target_layers:
+  - 2
+  - 6
+  - 10
+  - 12
+  - 14
+  target_sublayer: mlp.gate_proj
+  epsilons:
+  - 0.01
+  - 0.05
+  - 0.1
+  n_cal: 30
+  n_test: 30
+  seeds:
+  - 42
+  - 43
+  - 44
+  probe_seed: 42
+  alpha: 0.001
+  evasion_threshold: 0.5
+  tap_k: 8
+  m_values:
+  - 64
+  - 128
+  - 256
+  - 512
+  - 1024
+reference:
+  exp12_summary: reference/exp12_fp32_summary.json
+output:
+  dir: results/allpos_fp32
+
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=float32, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:   1%|          | 1/146 [00:00<00:21,  6.61it/s]Loading weights:  21%|██        | 30/146 [00:00<00:00, 142.43it/s]Loading weights:  45%|████▌     | 66/146 [00:00<00:00, 216.59it/s]Loading weights:  64%|██████▎   | 93/146 [00:00<00:00, 225.78it/s]Loading weights:  82%|████████▏ | 120/146 [00:00<00:00, 234.42it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 220.69it/s]
+Loaded 80 prompts (requested 80)
+============================================================
+PHASE 1: clean references
+============================================================
+============================================================
+PHASE 2: noise floor
+============================================================
+  {'last': 0.0, 'pos_mean': 0.0, 'pos_max': 0.0, 'kl_last': 0.0, 'tap': 0.0}
+============================================================
+PHASE 3: calibration inputs and adversary subspaces
+============================================================
+  L2: 3114 all-position inputs; leakage ratio by m: 64:4.74e-03, 128:6.54e-03, 256:1.05e-02, 512:2.21e-02, 1024:7.08e-02
+  L6: 3114 all-position inputs; leakage ratio by m: 64:5.43e-03, 128:7.13e-03, 256:1.09e-02, 512:2.08e-02, 1024:5.78e-02
+  L10: 3114 all-position inputs; leakage ratio by m: 64:3.84e-03, 128:5.11e-03, 256:7.88e-03, 512:1.56e-02, 1024:4.63e-02
+  L12: 3114 all-position inputs; leakage ratio by m: 64:3.16e-03, 128:4.17e-03, 256:6.46e-03, 512:1.28e-02, 1024:3.91e-02
+  L14: 3114 all-position inputs; leakage ratio by m: 64:3.36e-03, 128:4.44e-03, 256:6.89e-03, 512:1.35e-02, 1024:4.03e-02
+============================================================
+PHASE 4: edits
+============================================================
+  L2 eps=0.01 seed=42 gaussian      residual_all=6.38e-03 act_next=3.93e-03 tap=8.35e-03
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.01 seed=42 ns_last       residual_all=5.88e-03 act_next=1.23e-03 tap=5.98e-03
+  L2 eps=0.01 seed=42 allpos_m64    residual_all=4.39e-04 act_next=9.73e-05 tap=5.91e-03
+  L2 eps=0.01 seed=42 allpos_m128   residual_all=5.16e-04 act_next=1.09e-04 tap=5.82e-03
+  L2 eps=0.01 seed=42 allpos_m256   residual_all=6.55e-04 act_next=1.39e-04 tap=5.96e-03
+  L2 eps=0.01 seed=42 allpos_m512   residual_all=9.49e-04 act_next=2.03e-04 tap=5.94e-03
+  L2 eps=0.01 seed=42 allpos_m1024  residual_all=1.70e-03 act_next=3.41e-04 tap=5.86e-03
+  L2 eps=0.01 seed=43 gaussian      residual_all=6.38e-03 act_next=4.06e-03 tap=8.43e-03
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.01 seed=43 ns_last       residual_all=5.89e-03 act_next=1.23e-03 tap=6.02e-03
+  L2 eps=0.01 seed=43 allpos_m64    residual_all=4.39e-04 act_next=8.94e-05 tap=5.81e-03
+  L2 eps=0.01 seed=43 allpos_m128   residual_all=5.16e-04 act_next=1.07e-04 tap=5.87e-03
+  L2 eps=0.01 seed=43 allpos_m256   residual_all=6.55e-04 act_next=1.36e-04 tap=5.99e-03
+  L2 eps=0.01 seed=43 allpos_m512   residual_all=9.49e-04 act_next=1.89e-04 tap=5.94e-03
+  L2 eps=0.01 seed=43 allpos_m1024  residual_all=1.70e-03 act_next=3.33e-04 tap=5.99e-03
+  L2 eps=0.01 seed=44 gaussian      residual_all=6.38e-03 act_next=4.19e-03 tap=8.43e-03
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.01 seed=44 ns_last       residual_all=5.88e-03 act_next=1.21e-03 tap=6.05e-03
+  L2 eps=0.01 seed=44 allpos_m64    residual_all=4.39e-04 act_next=9.50e-05 tap=5.79e-03
+  L2 eps=0.01 seed=44 allpos_m128   residual_all=5.16e-04 act_next=1.09e-04 tap=5.84e-03
+  L2 eps=0.01 seed=44 allpos_m256   residual_all=6.55e-04 act_next=1.33e-04 tap=5.90e-03
+  L2 eps=0.01 seed=44 allpos_m512   residual_all=9.49e-04 act_next=1.99e-04 tap=5.95e-03
+  L2 eps=0.01 seed=44 allpos_m1024  residual_all=1.70e-03 act_next=3.30e-04 tap=5.93e-03
+  L2 eps=0.05 seed=42 gaussian      residual_all=3.19e-02 act_next=1.97e-02 tap=4.17e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.05 seed=42 ns_last       residual_all=2.94e-02 act_next=6.15e-03 tap=2.99e-02
+  L2 eps=0.05 seed=42 allpos_m64    residual_all=2.19e-03 act_next=4.87e-04 tap=2.95e-02
+  L2 eps=0.05 seed=42 allpos_m128   residual_all=2.58e-03 act_next=5.44e-04 tap=2.91e-02
+  L2 eps=0.05 seed=42 allpos_m256   residual_all=3.28e-03 act_next=6.97e-04 tap=2.98e-02
+  L2 eps=0.05 seed=42 allpos_m512   residual_all=4.74e-03 act_next=1.02e-03 tap=2.97e-02
+  L2 eps=0.05 seed=42 allpos_m1024  residual_all=8.48e-03 act_next=1.70e-03 tap=2.93e-02
+  L2 eps=0.05 seed=43 gaussian      residual_all=3.19e-02 act_next=2.02e-02 tap=4.21e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.05 seed=43 ns_last       residual_all=2.94e-02 act_next=6.18e-03 tap=3.01e-02
+  L2 eps=0.05 seed=43 allpos_m64    residual_all=2.20e-03 act_next=4.47e-04 tap=2.91e-02
+  L2 eps=0.05 seed=43 allpos_m128   residual_all=2.58e-03 act_next=5.37e-04 tap=2.94e-02
+  L2 eps=0.05 seed=43 allpos_m256   residual_all=3.27e-03 act_next=6.82e-04 tap=3.00e-02
+  L2 eps=0.05 seed=43 allpos_m512   residual_all=4.74e-03 act_next=9.45e-04 tap=2.97e-02
+  L2 eps=0.05 seed=43 allpos_m1024  residual_all=8.49e-03 act_next=1.67e-03 tap=3.00e-02
+  L2 eps=0.05 seed=44 gaussian      residual_all=3.19e-02 act_next=2.11e-02 tap=4.22e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.05 seed=44 ns_last       residual_all=2.94e-02 act_next=6.06e-03 tap=3.03e-02
+  L2 eps=0.05 seed=44 allpos_m64    residual_all=2.20e-03 act_next=4.75e-04 tap=2.89e-02
+  L2 eps=0.05 seed=44 allpos_m128   residual_all=2.58e-03 act_next=5.47e-04 tap=2.92e-02
+  L2 eps=0.05 seed=44 allpos_m256   residual_all=3.28e-03 act_next=6.66e-04 tap=2.95e-02
+  L2 eps=0.05 seed=44 allpos_m512   residual_all=4.74e-03 act_next=9.98e-04 tap=2.97e-02
+  L2 eps=0.05 seed=44 allpos_m1024  residual_all=8.49e-03 act_next=1.65e-03 tap=2.97e-02
+  L2 eps=0.1 seed=42 gaussian      residual_all=6.38e-02 act_next=3.94e-02 tap=8.35e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.1 seed=42 ns_last       residual_all=5.88e-02 act_next=1.23e-02 tap=5.98e-02
+  L2 eps=0.1 seed=42 allpos_m64    residual_all=4.39e-03 act_next=9.73e-04 tap=5.91e-02
+  L2 eps=0.1 seed=42 allpos_m128   residual_all=5.16e-03 act_next=1.09e-03 tap=5.82e-02
+  L2 eps=0.1 seed=42 allpos_m256   residual_all=6.55e-03 act_next=1.39e-03 tap=5.96e-02
+  L2 eps=0.1 seed=42 allpos_m512   residual_all=9.49e-03 act_next=2.04e-03 tap=5.94e-02
+  L2 eps=0.1 seed=42 allpos_m1024  residual_all=1.70e-02 act_next=3.41e-03 tap=5.86e-02
+  L2 eps=0.1 seed=43 gaussian      residual_all=6.38e-02 act_next=4.03e-02 tap=8.43e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.1 seed=43 ns_last       residual_all=5.89e-02 act_next=1.24e-02 tap=6.02e-02
+  L2 eps=0.1 seed=43 allpos_m64    residual_all=4.39e-03 act_next=8.94e-04 tap=5.81e-02
+  L2 eps=0.1 seed=43 allpos_m128   residual_all=5.16e-03 act_next=1.07e-03 tap=5.87e-02
+  L2 eps=0.1 seed=43 allpos_m256   residual_all=6.55e-03 act_next=1.36e-03 tap=5.99e-02
+  L2 eps=0.1 seed=43 allpos_m512   residual_all=9.49e-03 act_next=1.89e-03 tap=5.94e-02
+  L2 eps=0.1 seed=43 allpos_m1024  residual_all=1.70e-02 act_next=3.33e-03 tap=5.99e-02
+  L2 eps=0.1 seed=44 gaussian      residual_all=6.38e-02 act_next=4.24e-02 tap=8.43e-02
+    null space: rank(H)=30, null_dim=2018
+  L2 eps=0.1 seed=44 ns_last       residual_all=5.88e-02 act_next=1.21e-02 tap=6.05e-02
+  L2 eps=0.1 seed=44 allpos_m64    residual_all=4.39e-03 act_next=9.50e-04 tap=5.79e-02
+  L2 eps=0.1 seed=44 allpos_m128   residual_all=5.16e-03 act_next=1.09e-03 tap=5.84e-02
+  L2 eps=0.1 seed=44 allpos_m256   residual_all=6.55e-03 act_next=1.33e-03 tap=5.90e-02
+  L2 eps=0.1 seed=44 allpos_m512   residual_all=9.49e-03 act_next=2.00e-03 tap=5.95e-02
+  L2 eps=0.1 seed=44 allpos_m1024  residual_all=1.70e-02 act_next=3.30e-03 tap=5.93e-02
+  L6 eps=0.01 seed=42 gaussian      residual_all=5.09e-03 act_next=4.74e-03 tap=7.73e-03
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.01 seed=42 ns_last       residual_all=4.47e-03 act_next=1.08e-03 tap=5.94e-03
+  L6 eps=0.01 seed=42 allpos_m64    residual_all=3.75e-04 act_next=8.52e-05 tap=5.59e-03
+  L6 eps=0.01 seed=42 allpos_m128   residual_all=4.30e-04 act_next=9.86e-05 tap=5.74e-03
+  L6 eps=0.01 seed=42 allpos_m256   residual_all=5.31e-04 act_next=1.18e-04 tap=5.62e-03
+  L6 eps=0.01 seed=42 allpos_m512   residual_all=7.34e-04 act_next=1.66e-04 tap=5.74e-03
+  L6 eps=0.01 seed=42 allpos_m1024  residual_all=1.23e-03 act_next=2.68e-04 tap=5.77e-03
+  L6 eps=0.01 seed=43 gaussian      residual_all=5.09e-03 act_next=4.63e-03 tap=7.80e-03
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.01 seed=43 ns_last       residual_all=4.47e-03 act_next=1.05e-03 tap=5.89e-03
+  L6 eps=0.01 seed=43 allpos_m64    residual_all=3.75e-04 act_next=8.62e-05 tap=5.68e-03
+  L6 eps=0.01 seed=43 allpos_m128   residual_all=4.30e-04 act_next=9.92e-05 tap=5.79e-03
+  L6 eps=0.01 seed=43 allpos_m256   residual_all=5.31e-04 act_next=1.25e-04 tap=5.72e-03
+  L6 eps=0.01 seed=43 allpos_m512   residual_all=7.35e-04 act_next=1.69e-04 tap=5.81e-03
+  L6 eps=0.01 seed=43 allpos_m1024  residual_all=1.23e-03 act_next=2.69e-04 tap=5.81e-03
+  L6 eps=0.01 seed=44 gaussian      residual_all=5.09e-03 act_next=5.02e-03 tap=7.82e-03
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.01 seed=44 ns_last       residual_all=4.47e-03 act_next=1.03e-03 tap=5.96e-03
+  L6 eps=0.01 seed=44 allpos_m64    residual_all=3.75e-04 act_next=8.65e-05 tap=5.64e-03
+  L6 eps=0.01 seed=44 allpos_m128   residual_all=4.31e-04 act_next=9.98e-05 tap=5.64e-03
+  L6 eps=0.01 seed=44 allpos_m256   residual_all=5.31e-04 act_next=1.19e-04 tap=5.79e-03
+  L6 eps=0.01 seed=44 allpos_m512   residual_all=7.35e-04 act_next=1.70e-04 tap=5.75e-03
+  L6 eps=0.01 seed=44 allpos_m1024  residual_all=1.23e-03 act_next=2.66e-04 tap=5.85e-03
+  L6 eps=0.05 seed=42 gaussian      residual_all=2.55e-02 act_next=2.37e-02 tap=3.87e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.05 seed=42 ns_last       residual_all=2.23e-02 act_next=5.38e-03 tap=2.97e-02
+  L6 eps=0.05 seed=42 allpos_m64    residual_all=1.88e-03 act_next=4.26e-04 tap=2.80e-02
+  L6 eps=0.05 seed=42 allpos_m128   residual_all=2.15e-03 act_next=4.93e-04 tap=2.87e-02
+  L6 eps=0.05 seed=42 allpos_m256   residual_all=2.66e-03 act_next=5.88e-04 tap=2.81e-02
+  L6 eps=0.05 seed=42 allpos_m512   residual_all=3.67e-03 act_next=8.28e-04 tap=2.87e-02
+  L6 eps=0.05 seed=42 allpos_m1024  residual_all=6.13e-03 act_next=1.34e-03 tap=2.88e-02
+  L6 eps=0.05 seed=43 gaussian      residual_all=2.54e-02 act_next=2.32e-02 tap=3.90e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.05 seed=43 ns_last       residual_all=2.24e-02 act_next=5.26e-03 tap=2.95e-02
+  L6 eps=0.05 seed=43 allpos_m64    residual_all=1.88e-03 act_next=4.31e-04 tap=2.84e-02
+  L6 eps=0.05 seed=43 allpos_m128   residual_all=2.15e-03 act_next=4.96e-04 tap=2.90e-02
+  L6 eps=0.05 seed=43 allpos_m256   residual_all=2.66e-03 act_next=6.25e-04 tap=2.86e-02
+  L6 eps=0.05 seed=43 allpos_m512   residual_all=3.67e-03 act_next=8.47e-04 tap=2.91e-02
+  L6 eps=0.05 seed=43 allpos_m1024  residual_all=6.13e-03 act_next=1.35e-03 tap=2.90e-02
+  L6 eps=0.05 seed=44 gaussian      residual_all=2.54e-02 act_next=2.50e-02 tap=3.91e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.05 seed=44 ns_last       residual_all=2.23e-02 act_next=5.14e-03 tap=2.98e-02
+  L6 eps=0.05 seed=44 allpos_m64    residual_all=1.88e-03 act_next=4.33e-04 tap=2.82e-02
+  L6 eps=0.05 seed=44 allpos_m128   residual_all=2.15e-03 act_next=4.99e-04 tap=2.82e-02
+  L6 eps=0.05 seed=44 allpos_m256   residual_all=2.66e-03 act_next=5.94e-04 tap=2.90e-02
+  L6 eps=0.05 seed=44 allpos_m512   residual_all=3.67e-03 act_next=8.49e-04 tap=2.87e-02
+  L6 eps=0.05 seed=44 allpos_m1024  residual_all=6.13e-03 act_next=1.33e-03 tap=2.92e-02
+  L6 eps=0.1 seed=42 gaussian      residual_all=5.09e-02 act_next=4.75e-02 tap=7.74e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.1 seed=42 ns_last       residual_all=4.47e-02 act_next=1.08e-02 tap=5.94e-02
+  L6 eps=0.1 seed=42 allpos_m64    residual_all=3.75e-03 act_next=8.52e-04 tap=5.59e-02
+  L6 eps=0.1 seed=42 allpos_m128   residual_all=4.30e-03 act_next=9.86e-04 tap=5.74e-02
+  L6 eps=0.1 seed=42 allpos_m256   residual_all=5.32e-03 act_next=1.18e-03 tap=5.62e-02
+  L6 eps=0.1 seed=42 allpos_m512   residual_all=7.35e-03 act_next=1.66e-03 tap=5.74e-02
+  L6 eps=0.1 seed=42 allpos_m1024  residual_all=1.23e-02 act_next=2.68e-03 tap=5.77e-02
+  L6 eps=0.1 seed=43 gaussian      residual_all=5.09e-02 act_next=4.64e-02 tap=7.80e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.1 seed=43 ns_last       residual_all=4.47e-02 act_next=1.05e-02 tap=5.89e-02
+  L6 eps=0.1 seed=43 allpos_m64    residual_all=3.76e-03 act_next=8.62e-04 tap=5.68e-02
+  L6 eps=0.1 seed=43 allpos_m128   residual_all=4.30e-03 act_next=9.92e-04 tap=5.79e-02
+  L6 eps=0.1 seed=43 allpos_m256   residual_all=5.31e-03 act_next=1.25e-03 tap=5.72e-02
+  L6 eps=0.1 seed=43 allpos_m512   residual_all=7.35e-03 act_next=1.69e-03 tap=5.81e-02
+  L6 eps=0.1 seed=43 allpos_m1024  residual_all=1.23e-02 act_next=2.69e-03 tap=5.81e-02
+  L6 eps=0.1 seed=44 gaussian      residual_all=5.09e-02 act_next=5.00e-02 tap=7.82e-02
+    null space: rank(H)=30, null_dim=2018
+  L6 eps=0.1 seed=44 ns_last       residual_all=4.47e-02 act_next=1.03e-02 tap=5.96e-02
+  L6 eps=0.1 seed=44 allpos_m64    residual_all=3.76e-03 act_next=8.65e-04 tap=5.64e-02
+  L6 eps=0.1 seed=44 allpos_m128   residual_all=4.30e-03 act_next=9.98e-04 tap=5.64e-02
+  L6 eps=0.1 seed=44 allpos_m256   residual_all=5.31e-03 act_next=1.19e-03 tap=5.79e-02
+  L6 eps=0.1 seed=44 allpos_m512   residual_all=7.35e-03 act_next=1.70e-03 tap=5.75e-02
+  L6 eps=0.1 seed=44 allpos_m1024  residual_all=1.23e-02 act_next=2.66e-03 tap=5.85e-02
+  L10 eps=0.01 seed=42 gaussian      residual_all=5.11e-03 act_next=3.75e-03 tap=7.47e-03
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.01 seed=42 ns_last       residual_all=4.43e-03 act_next=4.19e-04 tap=5.60e-03
+  L10 eps=0.01 seed=42 allpos_m64    residual_all=3.16e-04 act_next=3.00e-05 tap=5.58e-03
+  L10 eps=0.01 seed=42 allpos_m128   residual_all=3.65e-04 act_next=3.36e-05 tap=5.71e-03
+  L10 eps=0.01 seed=42 allpos_m256   residual_all=4.53e-04 act_next=4.38e-05 tap=5.48e-03
+  L10 eps=0.01 seed=42 allpos_m512   residual_all=6.36e-04 act_next=6.15e-05 tap=5.54e-03
+  L10 eps=0.01 seed=42 allpos_m1024  residual_all=1.10e-03 act_next=1.07e-04 tap=5.58e-03
+  L10 eps=0.01 seed=43 gaussian      residual_all=5.10e-03 act_next=3.64e-03 tap=7.49e-03
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.01 seed=43 ns_last       residual_all=4.44e-03 act_next=4.15e-04 tap=5.60e-03
+  L10 eps=0.01 seed=43 allpos_m64    residual_all=3.16e-04 act_next=2.93e-05 tap=5.60e-03
+  L10 eps=0.01 seed=43 allpos_m128   residual_all=3.65e-04 act_next=3.50e-05 tap=5.63e-03
+  L10 eps=0.01 seed=43 allpos_m256   residual_all=4.53e-04 act_next=4.38e-05 tap=5.47e-03
+  L10 eps=0.01 seed=43 allpos_m512   residual_all=6.37e-04 act_next=6.36e-05 tap=5.57e-03
+  L10 eps=0.01 seed=43 allpos_m1024  residual_all=1.10e-03 act_next=1.09e-04 tap=5.56e-03
+  L10 eps=0.01 seed=44 gaussian      residual_all=5.12e-03 act_next=3.62e-03 tap=7.56e-03
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.01 seed=44 ns_last       residual_all=4.43e-03 act_next=4.21e-04 tap=5.65e-03
+  L10 eps=0.01 seed=44 allpos_m64    residual_all=3.17e-04 act_next=3.04e-05 tap=5.62e-03
+  L10 eps=0.01 seed=44 allpos_m128   residual_all=3.65e-04 act_next=3.58e-05 tap=5.65e-03
+  L10 eps=0.01 seed=44 allpos_m256   residual_all=4.53e-04 act_next=4.27e-05 tap=5.51e-03
+  L10 eps=0.01 seed=44 allpos_m512   residual_all=6.37e-04 act_next=6.13e-05 tap=5.56e-03
+  L10 eps=0.01 seed=44 allpos_m1024  residual_all=1.10e-03 act_next=1.07e-04 tap=5.54e-03
+  L10 eps=0.05 seed=42 gaussian      residual_all=2.56e-02 act_next=1.88e-02 tap=3.74e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.05 seed=42 ns_last       residual_all=2.22e-02 act_next=2.09e-03 tap=2.80e-02
+  L10 eps=0.05 seed=42 allpos_m64    residual_all=1.58e-03 act_next=1.50e-04 tap=2.79e-02
+  L10 eps=0.05 seed=42 allpos_m128   residual_all=1.82e-03 act_next=1.68e-04 tap=2.86e-02
+  L10 eps=0.05 seed=42 allpos_m256   residual_all=2.27e-03 act_next=2.19e-04 tap=2.74e-02
+  L10 eps=0.05 seed=42 allpos_m512   residual_all=3.18e-03 act_next=3.07e-04 tap=2.77e-02
+  L10 eps=0.05 seed=42 allpos_m1024  residual_all=5.49e-03 act_next=5.33e-04 tap=2.79e-02
+  L10 eps=0.05 seed=43 gaussian      residual_all=2.55e-02 act_next=1.82e-02 tap=3.74e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.05 seed=43 ns_last       residual_all=2.22e-02 act_next=2.07e-03 tap=2.80e-02
+  L10 eps=0.05 seed=43 allpos_m64    residual_all=1.58e-03 act_next=1.47e-04 tap=2.80e-02
+  L10 eps=0.05 seed=43 allpos_m128   residual_all=1.82e-03 act_next=1.75e-04 tap=2.81e-02
+  L10 eps=0.05 seed=43 allpos_m256   residual_all=2.27e-03 act_next=2.19e-04 tap=2.73e-02
+  L10 eps=0.05 seed=43 allpos_m512   residual_all=3.18e-03 act_next=3.18e-04 tap=2.79e-02
+  L10 eps=0.05 seed=43 allpos_m1024  residual_all=5.49e-03 act_next=5.44e-04 tap=2.78e-02
+  L10 eps=0.05 seed=44 gaussian      residual_all=2.56e-02 act_next=1.81e-02 tap=3.78e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.05 seed=44 ns_last       residual_all=2.22e-02 act_next=2.11e-03 tap=2.82e-02
+  L10 eps=0.05 seed=44 allpos_m64    residual_all=1.58e-03 act_next=1.52e-04 tap=2.81e-02
+  L10 eps=0.05 seed=44 allpos_m128   residual_all=1.82e-03 act_next=1.79e-04 tap=2.82e-02
+  L10 eps=0.05 seed=44 allpos_m256   residual_all=2.27e-03 act_next=2.14e-04 tap=2.75e-02
+  L10 eps=0.05 seed=44 allpos_m512   residual_all=3.18e-03 act_next=3.07e-04 tap=2.78e-02
+  L10 eps=0.05 seed=44 allpos_m1024  residual_all=5.49e-03 act_next=5.36e-04 tap=2.77e-02
+  L10 eps=0.1 seed=42 gaussian      residual_all=5.11e-02 act_next=3.75e-02 tap=7.47e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.1 seed=42 ns_last       residual_all=4.43e-02 act_next=4.19e-03 tap=5.60e-02
+  L10 eps=0.1 seed=42 allpos_m64    residual_all=3.17e-03 act_next=3.00e-04 tap=5.58e-02
+  L10 eps=0.1 seed=42 allpos_m128   residual_all=3.65e-03 act_next=3.36e-04 tap=5.71e-02
+  L10 eps=0.1 seed=42 allpos_m256   residual_all=4.53e-03 act_next=4.38e-04 tap=5.48e-02
+  L10 eps=0.1 seed=42 allpos_m512   residual_all=6.37e-03 act_next=6.15e-04 tap=5.54e-02
+  L10 eps=0.1 seed=42 allpos_m1024  residual_all=1.10e-02 act_next=1.07e-03 tap=5.58e-02
+  L10 eps=0.1 seed=43 gaussian      residual_all=5.10e-02 act_next=3.64e-02 tap=7.49e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.1 seed=43 ns_last       residual_all=4.44e-02 act_next=4.14e-03 tap=5.60e-02
+  L10 eps=0.1 seed=43 allpos_m64    residual_all=3.17e-03 act_next=2.93e-04 tap=5.60e-02
+  L10 eps=0.1 seed=43 allpos_m128   residual_all=3.65e-03 act_next=3.50e-04 tap=5.63e-02
+  L10 eps=0.1 seed=43 allpos_m256   residual_all=4.53e-03 act_next=4.38e-04 tap=5.47e-02
+  L10 eps=0.1 seed=43 allpos_m512   residual_all=6.37e-03 act_next=6.36e-04 tap=5.57e-02
+  L10 eps=0.1 seed=43 allpos_m1024  residual_all=1.10e-02 act_next=1.09e-03 tap=5.56e-02
+  L10 eps=0.1 seed=44 gaussian      residual_all=5.12e-02 act_next=3.62e-02 tap=7.56e-02
+    null space: rank(H)=30, null_dim=2018
+  L10 eps=0.1 seed=44 ns_last       residual_all=4.43e-02 act_next=4.21e-03 tap=5.65e-02
+  L10 eps=0.1 seed=44 allpos_m64    residual_all=3.17e-03 act_next=3.04e-04 tap=5.62e-02
+  L10 eps=0.1 seed=44 allpos_m128   residual_all=3.65e-03 act_next=3.58e-04 tap=5.65e-02
+  L10 eps=0.1 seed=44 allpos_m256   residual_all=4.53e-03 act_next=4.27e-04 tap=5.51e-02
+  L10 eps=0.1 seed=44 allpos_m512   residual_all=6.37e-03 act_next=6.13e-04 tap=5.56e-02
+  L10 eps=0.1 seed=44 allpos_m1024  residual_all=1.10e-02 act_next=1.07e-03 tap=5.54e-02
+  L12 eps=0.01 seed=42 gaussian      residual_all=6.86e-03 act_next=3.15e-03 tap=5.88e-03
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.01 seed=42 ns_last       residual_all=5.83e-03 act_next=4.01e-04 tap=4.03e-03
+  L12 eps=0.01 seed=42 allpos_m64    residual_all=3.86e-04 act_next=2.30e-05 tap=3.89e-03
+  L12 eps=0.01 seed=42 allpos_m128   residual_all=4.44e-04 act_next=2.86e-05 tap=3.97e-03
+  L12 eps=0.01 seed=42 allpos_m256   residual_all=5.53e-04 act_next=3.51e-05 tap=4.09e-03
+  L12 eps=0.01 seed=42 allpos_m512   residual_all=7.78e-04 act_next=4.77e-05 tap=3.99e-03
+  L12 eps=0.01 seed=42 allpos_m1024  residual_all=1.36e-03 act_next=8.84e-05 tap=4.00e-03
+  L12 eps=0.01 seed=43 gaussian      residual_all=6.86e-03 act_next=3.17e-03 tap=5.84e-03
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.01 seed=43 ns_last       residual_all=5.84e-03 act_next=4.07e-04 tap=4.01e-03
+  L12 eps=0.01 seed=43 allpos_m64    residual_all=3.86e-04 act_next=2.36e-05 tap=3.86e-03
+  L12 eps=0.01 seed=43 allpos_m128   residual_all=4.44e-04 act_next=2.79e-05 tap=3.98e-03
+  L12 eps=0.01 seed=43 allpos_m256   residual_all=5.52e-04 act_next=3.34e-05 tap=4.04e-03
+  L12 eps=0.01 seed=43 allpos_m512   residual_all=7.79e-04 act_next=4.91e-05 tap=3.97e-03
+  L12 eps=0.01 seed=43 allpos_m1024  residual_all=1.36e-03 act_next=9.04e-05 tap=4.04e-03
+  L12 eps=0.01 seed=44 gaussian      residual_all=6.88e-03 act_next=3.08e-03 tap=5.91e-03
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.01 seed=44 ns_last       residual_all=5.83e-03 act_next=4.14e-04 tap=4.06e-03
+  L12 eps=0.01 seed=44 allpos_m64    residual_all=3.86e-04 act_next=2.45e-05 tap=3.86e-03
+  L12 eps=0.01 seed=44 allpos_m128   residual_all=4.44e-04 act_next=2.81e-05 tap=3.97e-03
+  L12 eps=0.01 seed=44 allpos_m256   residual_all=5.53e-04 act_next=3.45e-05 tap=4.09e-03
+  L12 eps=0.01 seed=44 allpos_m512   residual_all=7.78e-04 act_next=4.78e-05 tap=3.99e-03
+  L12 eps=0.01 seed=44 allpos_m1024  residual_all=1.36e-03 act_next=8.80e-05 tap=4.05e-03
+  L12 eps=0.05 seed=42 gaussian      residual_all=3.43e-02 act_next=1.58e-02 tap=2.94e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.05 seed=42 ns_last       residual_all=2.92e-02 act_next=2.01e-03 tap=2.02e-02
+  L12 eps=0.05 seed=42 allpos_m64    residual_all=1.93e-03 act_next=1.15e-04 tap=1.94e-02
+  L12 eps=0.05 seed=42 allpos_m128   residual_all=2.22e-03 act_next=1.43e-04 tap=1.98e-02
+  L12 eps=0.05 seed=42 allpos_m256   residual_all=2.76e-03 act_next=1.75e-04 tap=2.05e-02
+  L12 eps=0.05 seed=42 allpos_m512   residual_all=3.89e-03 act_next=2.39e-04 tap=2.00e-02
+  L12 eps=0.05 seed=42 allpos_m1024  residual_all=6.79e-03 act_next=4.42e-04 tap=2.00e-02
+  L12 eps=0.05 seed=43 gaussian      residual_all=3.43e-02 act_next=1.58e-02 tap=2.92e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.05 seed=43 ns_last       residual_all=2.92e-02 act_next=2.03e-03 tap=2.01e-02
+  L12 eps=0.05 seed=43 allpos_m64    residual_all=1.93e-03 act_next=1.18e-04 tap=1.93e-02
+  L12 eps=0.05 seed=43 allpos_m128   residual_all=2.22e-03 act_next=1.39e-04 tap=1.99e-02
+  L12 eps=0.05 seed=43 allpos_m256   residual_all=2.76e-03 act_next=1.67e-04 tap=2.02e-02
+  L12 eps=0.05 seed=43 allpos_m512   residual_all=3.89e-03 act_next=2.45e-04 tap=1.99e-02
+  L12 eps=0.05 seed=43 allpos_m1024  residual_all=6.80e-03 act_next=4.52e-04 tap=2.02e-02
+  L12 eps=0.05 seed=44 gaussian      residual_all=3.44e-02 act_next=1.54e-02 tap=2.96e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.05 seed=44 ns_last       residual_all=2.91e-02 act_next=2.07e-03 tap=2.03e-02
+  L12 eps=0.05 seed=44 allpos_m64    residual_all=1.93e-03 act_next=1.23e-04 tap=1.93e-02
+  L12 eps=0.05 seed=44 allpos_m128   residual_all=2.22e-03 act_next=1.40e-04 tap=1.99e-02
+  L12 eps=0.05 seed=44 allpos_m256   residual_all=2.76e-03 act_next=1.72e-04 tap=2.04e-02
+  L12 eps=0.05 seed=44 allpos_m512   residual_all=3.89e-03 act_next=2.39e-04 tap=1.99e-02
+  L12 eps=0.05 seed=44 allpos_m1024  residual_all=6.79e-03 act_next=4.40e-04 tap=2.03e-02
+  L12 eps=0.1 seed=42 gaussian      residual_all=6.86e-02 act_next=3.16e-02 tap=5.89e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.1 seed=42 ns_last       residual_all=5.83e-02 act_next=4.01e-03 tap=4.03e-02
+  L12 eps=0.1 seed=42 allpos_m64    residual_all=3.86e-03 act_next=2.30e-04 tap=3.89e-02
+  L12 eps=0.1 seed=42 allpos_m128   residual_all=4.44e-03 act_next=2.86e-04 tap=3.97e-02
+  L12 eps=0.1 seed=42 allpos_m256   residual_all=5.53e-03 act_next=3.51e-04 tap=4.09e-02
+  L12 eps=0.1 seed=42 allpos_m512   residual_all=7.78e-03 act_next=4.77e-04 tap=3.99e-02
+  L12 eps=0.1 seed=42 allpos_m1024  residual_all=1.36e-02 act_next=8.84e-04 tap=4.00e-02
+  L12 eps=0.1 seed=43 gaussian      residual_all=6.86e-02 act_next=3.17e-02 tap=5.84e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.1 seed=43 ns_last       residual_all=5.83e-02 act_next=4.06e-03 tap=4.01e-02
+  L12 eps=0.1 seed=43 allpos_m64    residual_all=3.86e-03 act_next=2.36e-04 tap=3.86e-02
+  L12 eps=0.1 seed=43 allpos_m128   residual_all=4.44e-03 act_next=2.79e-04 tap=3.98e-02
+  L12 eps=0.1 seed=43 allpos_m256   residual_all=5.52e-03 act_next=3.34e-04 tap=4.04e-02
+  L12 eps=0.1 seed=43 allpos_m512   residual_all=7.79e-03 act_next=4.91e-04 tap=3.97e-02
+  L12 eps=0.1 seed=43 allpos_m1024  residual_all=1.36e-02 act_next=9.04e-04 tap=4.04e-02
+  L12 eps=0.1 seed=44 gaussian      residual_all=6.88e-02 act_next=3.08e-02 tap=5.91e-02
+    null space: rank(H)=30, null_dim=2018
+  L12 eps=0.1 seed=44 ns_last       residual_all=5.83e-02 act_next=4.15e-03 tap=4.06e-02
+  L12 eps=0.1 seed=44 allpos_m64    residual_all=3.86e-03 act_next=2.45e-04 tap=3.86e-02
+  L12 eps=0.1 seed=44 allpos_m128   residual_all=4.44e-03 act_next=2.80e-04 tap=3.97e-02
+  L12 eps=0.1 seed=44 allpos_m256   residual_all=5.53e-03 act_next=3.45e-04 tap=4.09e-02
+  L12 eps=0.1 seed=44 allpos_m512   residual_all=7.79e-03 act_next=4.78e-04 tap=3.99e-02
+  L12 eps=0.1 seed=44 allpos_m1024  residual_all=1.36e-02 act_next=8.80e-04 tap=4.05e-02
+  L14 eps=0.01 seed=42 gaussian      residual_all=6.71e-03 act_next=2.60e-03 tap=4.60e-03
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.01 seed=42 ns_last       residual_all=5.67e-03 act_next=3.54e-04 tap=3.48e-03
+  L14 eps=0.01 seed=42 allpos_m64    residual_all=3.89e-04 act_next=2.08e-05 tap=3.48e-03
+  L14 eps=0.01 seed=42 allpos_m128   residual_all=4.47e-04 act_next=2.23e-05 tap=3.34e-03
+  L14 eps=0.01 seed=42 allpos_m256   residual_all=5.57e-04 act_next=2.84e-05 tap=3.34e-03
+  L14 eps=0.01 seed=42 allpos_m512   residual_all=7.81e-04 act_next=4.13e-05 tap=3.49e-03
+  L14 eps=0.01 seed=42 allpos_m1024  residual_all=1.35e-03 act_next=7.29e-05 tap=3.24e-03
+  L14 eps=0.01 seed=43 gaussian      residual_all=6.70e-03 act_next=2.57e-03 tap=4.57e-03
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.01 seed=43 ns_last       residual_all=5.67e-03 act_next=3.62e-04 tap=3.37e-03
+  L14 eps=0.01 seed=43 allpos_m64    residual_all=3.89e-04 act_next=2.05e-05 tap=3.71e-03
+  L14 eps=0.01 seed=43 allpos_m128   residual_all=4.47e-04 act_next=2.27e-05 tap=3.28e-03
+  L14 eps=0.01 seed=43 allpos_m256   residual_all=5.57e-04 act_next=2.75e-05 tap=3.54e-03
+  L14 eps=0.01 seed=43 allpos_m512   residual_all=7.81e-04 act_next=4.04e-05 tap=3.48e-03
+  L14 eps=0.01 seed=43 allpos_m1024  residual_all=1.35e-03 act_next=7.23e-05 tap=3.51e-03
+  L14 eps=0.01 seed=44 gaussian      residual_all=6.72e-03 act_next=2.60e-03 tap=4.43e-03
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.01 seed=44 ns_last       residual_all=5.67e-03 act_next=3.47e-04 tap=3.31e-03
+  L14 eps=0.01 seed=44 allpos_m64    residual_all=3.89e-04 act_next=2.00e-05 tap=3.52e-03
+  L14 eps=0.01 seed=44 allpos_m128   residual_all=4.48e-04 act_next=2.20e-05 tap=3.36e-03
+  L14 eps=0.01 seed=44 allpos_m256   residual_all=5.57e-04 act_next=2.80e-05 tap=3.40e-03
+  L14 eps=0.01 seed=44 allpos_m512   residual_all=7.81e-04 act_next=4.01e-05 tap=3.42e-03
+  L14 eps=0.01 seed=44 allpos_m1024  residual_all=1.35e-03 act_next=7.18e-05 tap=3.38e-03
+  L14 eps=0.05 seed=42 gaussian      residual_all=3.35e-02 act_next=1.30e-02 tap=2.30e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.05 seed=42 ns_last       residual_all=2.84e-02 act_next=1.77e-03 tap=1.74e-02
+  L14 eps=0.05 seed=42 allpos_m64    residual_all=1.94e-03 act_next=1.04e-04 tap=1.74e-02
+  L14 eps=0.05 seed=42 allpos_m128   residual_all=2.24e-03 act_next=1.11e-04 tap=1.67e-02
+  L14 eps=0.05 seed=42 allpos_m256   residual_all=2.79e-03 act_next=1.42e-04 tap=1.67e-02
+  L14 eps=0.05 seed=42 allpos_m512   residual_all=3.91e-03 act_next=2.06e-04 tap=1.74e-02
+  L14 eps=0.05 seed=42 allpos_m1024  residual_all=6.74e-03 act_next=3.64e-04 tap=1.62e-02
+  L14 eps=0.05 seed=43 gaussian      residual_all=3.35e-02 act_next=1.28e-02 tap=2.29e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.05 seed=43 ns_last       residual_all=2.83e-02 act_next=1.81e-03 tap=1.68e-02
+  L14 eps=0.05 seed=43 allpos_m64    residual_all=1.94e-03 act_next=1.02e-04 tap=1.85e-02
+  L14 eps=0.05 seed=43 allpos_m128   residual_all=2.24e-03 act_next=1.13e-04 tap=1.64e-02
+  L14 eps=0.05 seed=43 allpos_m256   residual_all=2.78e-03 act_next=1.37e-04 tap=1.77e-02
+  L14 eps=0.05 seed=43 allpos_m512   residual_all=3.91e-03 act_next=2.02e-04 tap=1.74e-02
+  L14 eps=0.05 seed=43 allpos_m1024  residual_all=6.74e-03 act_next=3.62e-04 tap=1.76e-02
+  L14 eps=0.05 seed=44 gaussian      residual_all=3.36e-02 act_next=1.30e-02 tap=2.22e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.05 seed=44 ns_last       residual_all=2.83e-02 act_next=1.73e-03 tap=1.66e-02
+  L14 eps=0.05 seed=44 allpos_m64    residual_all=1.94e-03 act_next=1.00e-04 tap=1.76e-02
+  L14 eps=0.05 seed=44 allpos_m128   residual_all=2.24e-03 act_next=1.10e-04 tap=1.68e-02
+  L14 eps=0.05 seed=44 allpos_m256   residual_all=2.79e-03 act_next=1.40e-04 tap=1.70e-02
+  L14 eps=0.05 seed=44 allpos_m512   residual_all=3.91e-03 act_next=2.00e-04 tap=1.71e-02
+  L14 eps=0.05 seed=44 allpos_m1024  residual_all=6.74e-03 act_next=3.59e-04 tap=1.69e-02
+  L14 eps=0.1 seed=42 gaussian      residual_all=6.71e-02 act_next=2.60e-02 tap=4.60e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.1 seed=42 ns_last       residual_all=5.68e-02 act_next=3.55e-03 tap=3.48e-02
+  L14 eps=0.1 seed=42 allpos_m64    residual_all=3.89e-03 act_next=2.08e-04 tap=3.48e-02
+  L14 eps=0.1 seed=42 allpos_m128   residual_all=4.47e-03 act_next=2.23e-04 tap=3.34e-02
+  L14 eps=0.1 seed=42 allpos_m256   residual_all=5.57e-03 act_next=2.84e-04 tap=3.34e-02
+  L14 eps=0.1 seed=42 allpos_m512   residual_all=7.81e-03 act_next=4.13e-04 tap=3.49e-02
+  L14 eps=0.1 seed=42 allpos_m1024  residual_all=1.35e-02 act_next=7.29e-04 tap=3.24e-02
+  L14 eps=0.1 seed=43 gaussian      residual_all=6.70e-02 act_next=2.57e-02 tap=4.58e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.1 seed=43 ns_last       residual_all=5.67e-02 act_next=3.62e-03 tap=3.37e-02
+  L14 eps=0.1 seed=43 allpos_m64    residual_all=3.89e-03 act_next=2.04e-04 tap=3.71e-02
+  L14 eps=0.1 seed=43 allpos_m128   residual_all=4.47e-03 act_next=2.27e-04 tap=3.28e-02
+  L14 eps=0.1 seed=43 allpos_m256   residual_all=5.57e-03 act_next=2.75e-04 tap=3.54e-02
+  L14 eps=0.1 seed=43 allpos_m512   residual_all=7.81e-03 act_next=4.04e-04 tap=3.48e-02
+  L14 eps=0.1 seed=43 allpos_m1024  residual_all=1.35e-02 act_next=7.24e-04 tap=3.51e-02
+  L14 eps=0.1 seed=44 gaussian      residual_all=6.72e-02 act_next=2.60e-02 tap=4.44e-02
+    null space: rank(H)=30, null_dim=2018
+  L14 eps=0.1 seed=44 ns_last       residual_all=5.67e-02 act_next=3.47e-03 tap=3.31e-02
+  L14 eps=0.1 seed=44 allpos_m64    residual_all=3.89e-03 act_next=2.00e-04 tap=3.52e-02
+  L14 eps=0.1 seed=44 allpos_m128   residual_all=4.48e-03 act_next=2.20e-04 tap=3.36e-02
+  L14 eps=0.1 seed=44 allpos_m256   residual_all=5.57e-03 act_next=2.80e-04 tap=3.40e-02
+  L14 eps=0.1 seed=44 allpos_m512   residual_all=7.81e-03 act_next=4.01e-04 tap=3.42e-02
+  L14 eps=0.1 seed=44 allpos_m1024  residual_all=1.35e-02 act_next=7.18e-04 tap=3.38e-02
+============================================================
+PHASE 5: analysis
+============================================================
+
+  Every-layer activation audit vs tap test (calibration prompts unless noted)
+  attack          n | audit evaded med min supp med supp@next | held-out evaded | tap rejects med tap kept | med KL ns/g cal/held
+  -------------------------------------------------------------------------------------------------------------------------------
+  ns_last        45 |    36/45            72.1%         86.4% |        0/45     |    45/45           74.7% |     0.088/0.578     
+  allpos_m64     45 |    45/45            97.9%         99.2% |       42/45     |    45/45           72.3% |     0.000/0.197     
+  allpos_m128    45 |    45/45            97.5%         99.0% |       42/45     |    45/45           72.2% |     0.000/0.196     
+  allpos_m256    45 |    45/45            96.9%         98.8% |       42/45     |    45/45           72.7% |     0.001/0.200     
+  allpos_m512    45 |    45/45            95.6%         98.3% |       30/45     |    45/45           73.6% |     0.002/0.214     
+  allpos_m1024   45 |    45/45            92.6%         97.0% |       15/45     |    45/45           73.4% |     0.006/0.251     
+
+  Reproduction of exp12 (gaussian and ns_last, every layer): max relative difference 3.04e-07
+
+  Saved results to results/allpos_fp32
+  Runtime: 19.7 min
+EXP13_DONE

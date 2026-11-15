@@ -1,0 +1,115 @@
+NVIDIA H200, 143771 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+..                                                                       [100%]
+2 passed in 11.24s
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  12%|█▏        | 17/146 [00:00<00:00, 167.14it/s]Loading weights:  34%|███▍      | 50/146 [00:00<00:00, 251.59it/s]Loading weights:  58%|█████▊    | 84/146 [00:00<00:00, 282.11it/s]Loading weights:  77%|███████▋  | 113/146 [00:00<00:00, 274.42it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 278.08it/s]
+Loaded 800 test passages (requested 800)
+Loaded 2000 train passages (requested 2000)
+  30 cal, 240 known extra, 270 secret, 260 training texts, 2000 corpus passages
+  L2: subspaces done (40s)
+  L6: subspaces done (78s)
+  L10: subspaces done (117s)
+  L12: subspaces done (156s)
+  L14: subspaces done (195s)
+
+--- backdoor BD_L2 ---
+    epoch 0: loss=2.4445 kept=0.999
+    epoch 1: loss=1.1288 kept=1.000
+    epoch 2: loss=0.6569 kept=1.000
+    epoch 3: loss=0.4314 kept=1.000
+    epoch 4: loss=0.3457 kept=1.000
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+  trigger 100%, false 0%, ppl 30.80, eps {'2': 0.09372156858444214, '6': 0.11166753619909286, '10': 0.11223099380731583, '12': 0.10682966560125351, '14': 0.10918261855840683}
+
+--- backdoor BD_APcal256_lo ---
+    epoch 0: loss=3.1561 kept=0.948
+    epoch 1: loss=2.7050 kept=0.996
+    epoch 2: loss=2.5088 kept=0.998
+    epoch 3: loss=2.3117 kept=0.998
+    epoch 4: loss=2.1250 kept=0.999
+  trigger 100%, false 0%, ppl 30.15, eps {'2': 0.05488309636712074, '6': 0.05780353024601936, '10': 0.060681965202093124, '12': 0.06241725757718086, '14': 0.06472207605838776}
+
+--- backdoor BD_APcal256_hi ---
+    epoch 0: loss=2.8169 kept=0.953
+    epoch 1: loss=1.8000 kept=0.997
+    epoch 2: loss=1.2777 kept=0.999
+    epoch 3: loss=0.9163 kept=0.999
+    epoch 4: loss=0.7085 kept=0.999
+  trigger 100%, false 0%, ppl 29.48, eps {'2': 0.21735639870166779, '6': 0.2616214156150818, '10': 0.26251503825187683, '12': 0.24657461047172546, '14': 0.25696128606796265}
+
+--- backdoor BD_APcal1024_lo ---
+    epoch 0: loss=2.8679 kept=0.984
+    epoch 1: loss=2.0002 kept=0.999
+    epoch 2: loss=1.5217 kept=1.000
+    epoch 3: loss=1.1548 kept=1.000
+    epoch 4: loss=0.9026 kept=1.000
+  trigger 100%, false 0%, ppl 28.07, eps {'2': 0.07664448022842407, '6': 0.09699742496013641, '10': 0.09777801483869553, '12': 0.0920502319931984, '14': 0.09487445652484894}
+
+--- backdoor BD_APknown256_hi ---
+    epoch 0: loss=2.9698 kept=0.944
+    epoch 1: loss=2.2619 kept=0.996
+    epoch 2: loss=1.8271 kept=0.998
+    epoch 3: loss=1.4832 kept=0.999
+    epoch 4: loss=1.2356 kept=0.999
+  trigger 100%, false 0%, ppl 30.19, eps {'2': 0.24274668097496033, '6': 0.2700590193271637, '10': 0.2633015811443329, '12': 0.2507266104221344, '14': 0.27335843443870544}
+
+--- backdoor BD_APdist256_lo ---
+    epoch 0: loss=3.2520 kept=0.937
+    epoch 1: loss=2.9292 kept=0.995
+    epoch 2: loss=2.8494 kept=0.997
+    epoch 3: loss=2.7689 kept=0.998
+    epoch 4: loss=2.6855 kept=0.998
+  trigger 100%, false 0%, ppl 32.13, eps {'2': 0.049943409860134125, '6': 0.04306556284427643, '10': 0.04742516949772835, '12': 0.0478697344660759, '14': 0.05579749867320061}
+
+--- backdoor BD_APdist256_hi ---
+    epoch 0: loss=2.9870 kept=0.942
+    epoch 1: loss=2.3509 kept=0.995
+    epoch 2: loss=1.9497 kept=0.998
+    epoch 3: loss=1.5895 kept=0.999
+    epoch 4: loss=1.3076 kept=0.999
+  trigger 100%, false 0%, ppl 30.68, eps {'2': 0.24293220043182373, '6': 0.2705784738063812, '10': 0.26888129115104675, '12': 0.2481476068496704, '14': 0.27220213413238525}
+
+--- backdoor BD_APdist1024_lo ---
+    epoch 0: loss=2.9821 kept=0.981
+    epoch 1: loss=2.3584 kept=0.999
+    epoch 2: loss=1.9737 kept=0.999
+    epoch 3: loss=1.6478 kept=1.000
+    epoch 4: loss=1.3768 kept=1.000
+  trigger 100%, false 0%, ppl 30.13, eps {'2': 0.0839916542172432, '6': 0.09706661105155945, '10': 0.09626252949237823, '12': 0.08980109542608261, '14': 0.09294959902763367}
+
+--- backdoor BD_APdist1024_hi ---
+    epoch 0: loss=2.7454 kept=0.981
+    epoch 1: loss=1.4636 kept=0.999
+    epoch 2: loss=0.8933 kept=1.000
+    epoch 3: loss=0.6008 kept=1.000
+    epoch 4: loss=0.4607 kept=1.000
+  trigger 100%, false 0%, ppl 29.76, eps {'2': 0.3320590555667877, '6': 0.3629991412162781, '10': 0.3633122146129608, '12': 0.3406246304512024, '14': 0.33839231729507446}
+
+--- backdoor BD_Jcal_lo ---
+    epoch 0: loss=3.2231 kept=0.949
+    epoch 1: loss=2.7810 kept=0.997
+    epoch 2: loss=2.6316 kept=0.998
+    epoch 3: loss=2.4854 kept=0.998
+    epoch 4: loss=2.3457 kept=0.999
+  trigger 100%, false 0%, ppl 30.40, eps {'2': 0.05551888793706894, '6': 0.060943812131881714, '10': 0.06120820343494415, '12': 0.06263837218284607, '14': 0.06398903578519821}
+
+--- backdoor BD_Jdist_lo ---
+    epoch 0: loss=3.2881 kept=0.944
+    epoch 1: loss=2.9184 kept=0.996
+    epoch 2: loss=2.8417 kept=0.997
+    epoch 3: loss=2.7622 kept=0.998
+    epoch 4: loss=2.6810 kept=0.998
+  trigger 100%, false 0%, ppl 31.95, eps {'2': 0.05542061850428581, '6': 0.050506189465522766, '10': 0.04924109950661659, '12': 0.0521426759660244, '14': 0.05637266859412193}
+
+--- backdoor BD_Jdist_hi ---
+    epoch 0: loss=2.9893 kept=0.947
+    epoch 1: loss=2.3404 kept=0.996
+    epoch 2: loss=1.9374 kept=0.998
+    epoch 3: loss=1.6005 kept=0.999
+    epoch 4: loss=1.3317 kept=0.999
+  trigger 100%, false 0%, ppl 30.69, eps {'2': 0.2489669770002365, '6': 0.28007692098617554, '10': 0.2730816900730133, '12': 0.265828937292099, '14': 0.28452593088150024}
+BUILD_DONE (32 models, 7.8 min)
+EXP16_DONE build 

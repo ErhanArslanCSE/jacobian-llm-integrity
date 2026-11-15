@@ -1,0 +1,84 @@
+
+margin 1.0: tau = 1.0 x max clean cross-architecture deviation (leave-one-architecture-out)
+  single   false alarms on clean model: activation 12/20, tap 12/20
+    allpos_m1024  eps=0.01  activation  60/100 tap  88/100
+    allpos_m1024  eps=0.05  activation  64/100 tap 100/100
+    allpos_m1024  eps=0.1   activation  62/100 tap 100/100
+    allpos_m256   eps=0.01  activation  60/100 tap  88/100
+    allpos_m256   eps=0.05  activation  59/100 tap 100/100
+    allpos_m256   eps=0.1   activation  60/100 tap 100/100
+    gaussian      eps=0.01  activation  60/100 tap 100/100
+    gaussian      eps=0.05  activation 100/100 tap 100/100
+    gaussian      eps=0.1   activation 100/100 tap 100/100
+    ns_last       eps=0.01  activation  60/100 tap  88/100
+    ns_last       eps=0.05  activation  76/100 tap 100/100
+    ns_last       eps=0.1   activation  92/100 tap 100/100
+  batched  false alarms on clean model: activation 9/20, tap 12/20
+    allpos_m1024  eps=0.01  activation  45/100 tap  88/100
+    allpos_m1024  eps=0.05  activation  43/100 tap 100/100
+    allpos_m1024  eps=0.1   activation  48/100 tap 100/100
+    allpos_m256   eps=0.01  activation  43/100 tap  88/100
+    allpos_m256   eps=0.05  activation  41/100 tap 100/100
+    allpos_m256   eps=0.1   activation  43/100 tap 100/100
+    gaussian      eps=0.01  activation  54/100 tap 100/100
+    gaussian      eps=0.05  activation 100/100 tap 100/100
+    gaussian      eps=0.1   activation 100/100 tap 100/100
+    ns_last       eps=0.01  activation  43/100 tap  88/100
+    ns_last       eps=0.05  activation  59/100 tap 100/100
+    ns_last       eps=0.1   activation  80/100 tap 100/100
+
+margin 1.5: tau = 1.5 x max clean cross-architecture deviation (leave-one-architecture-out)
+  single   false alarms on clean model: activation 6/20, tap 0/20
+    allpos_m1024  eps=0.01  activation   0/100 tap   0/100
+    allpos_m1024  eps=0.05  activation   0/100 tap 100/100
+    allpos_m1024  eps=0.1   activation   0/100 tap 100/100
+    allpos_m256   eps=0.01  activation   0/100 tap   0/100
+    allpos_m256   eps=0.05  activation   0/100 tap 100/100
+    allpos_m256   eps=0.1   activation   0/100 tap 100/100
+    gaussian      eps=0.01  activation   0/100 tap   6/100
+    gaussian      eps=0.05  activation  76/100 tap 100/100
+    gaussian      eps=0.1   activation 100/100 tap 100/100
+    ns_last       eps=0.01  activation   0/100 tap   0/100
+    ns_last       eps=0.05  activation   0/100 tap 100/100
+    ns_last       eps=0.1   activation   6/100 tap 100/100
+  batched  false alarms on clean model: activation 6/20, tap 0/20
+    allpos_m1024  eps=0.01  activation   3/100 tap   0/100
+    allpos_m1024  eps=0.05  activation   3/100 tap 100/100
+    allpos_m1024  eps=0.1   activation   3/100 tap 100/100
+    allpos_m256   eps=0.01  activation   3/100 tap   0/100
+    allpos_m256   eps=0.05  activation   3/100 tap 100/100
+    allpos_m256   eps=0.1   activation   3/100 tap 100/100
+    gaussian      eps=0.01  activation   3/100 tap   6/100
+    gaussian      eps=0.05  activation  68/100 tap 100/100
+    gaussian      eps=0.1   activation 100/100 tap 100/100
+    ns_last       eps=0.01  activation   3/100 tap   0/100
+    ns_last       eps=0.05  activation   3/100 tap 100/100
+    ns_last       eps=0.1   activation   6/100 tap 100/100
+
+margin 2.0: tau = 2.0 x max clean cross-architecture deviation (leave-one-architecture-out)
+  single   false alarms on clean model: activation 6/20, tap 0/20
+    allpos_m1024  eps=0.01  activation   0/100 tap   0/100
+    allpos_m1024  eps=0.05  activation   0/100 tap  96/100
+    allpos_m1024  eps=0.1   activation   0/100 tap 100/100
+    allpos_m256   eps=0.01  activation   0/100 tap   0/100
+    allpos_m256   eps=0.05  activation   0/100 tap 100/100
+    allpos_m256   eps=0.1   activation   0/100 tap 100/100
+    gaussian      eps=0.01  activation   0/100 tap   0/100
+    gaussian      eps=0.05  activation  26/100 tap 100/100
+    gaussian      eps=0.1   activation 100/100 tap 100/100
+    ns_last       eps=0.01  activation   0/100 tap   0/100
+    ns_last       eps=0.05  activation   0/100 tap 100/100
+    ns_last       eps=0.1   activation   0/100 tap 100/100
+  batched  false alarms on clean model: activation 6/20, tap 0/20
+    allpos_m1024  eps=0.01  activation   0/100 tap   0/100
+    allpos_m1024  eps=0.05  activation   0/100 tap  96/100
+    allpos_m1024  eps=0.1   activation   0/100 tap 100/100
+    allpos_m256   eps=0.01  activation   0/100 tap   0/100
+    allpos_m256   eps=0.05  activation   0/100 tap 100/100
+    allpos_m256   eps=0.1   activation   0/100 tap 100/100
+    gaussian      eps=0.01  activation   0/100 tap   0/100
+    gaussian      eps=0.05  activation  21/100 tap 100/100
+    gaussian      eps=0.1   activation 100/100 tap 100/100
+    ns_last       eps=0.01  activation   0/100 tap   0/100
+    ns_last       eps=0.05  activation   0/100 tap 100/100
+    ns_last       eps=0.1   activation   0/100 tap 100/100

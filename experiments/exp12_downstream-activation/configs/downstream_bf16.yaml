@@ -1,0 +1,32 @@
+# Same model, prompts, layers, sizes and seed as exp9 (configs/baselines.yaml), bfloat16 as in the paper.
+model:
+  name: "meta-llama/Llama-3.2-1B"
+  dtype: "bfloat16"
+  attn_implementation: "eager"
+  use_cache: false
+  device: "cuda"
+
+data:
+  dataset: "Salesforce/wikitext"  # same data as exp9; the short id "wikitext" is no longer resolved
+  subset: "wikitext-103-v1"
+  split: "test"
+  num_prompts: 80
+  max_length: 128
+  min_length: 32
+
+experiment:
+  target_layers: [2, 6, 10, 12, 14]
+  target_sublayer: "mlp.gate_proj"
+  epsilons: [0.01, 0.05, 0.1]
+  n_cal: 30
+  n_test: 30
+  seed: 42
+  alpha: 0.001
+  evasion_threshold: 0.5
+  spectrum_bottom_dims: [256, 512, 1024, 1536]
+
+reference:
+  exp9_results: "reference/exp9_results.json"
+
+output:
+  dir: "results/downstream_bf16"

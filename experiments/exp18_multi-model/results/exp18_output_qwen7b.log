@@ -1,0 +1,68 @@
+NVIDIA H200, 143771 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+.                                                                        [100%]
+1 passed, 2 deselected in 5.29s
+-- configs/multi_qwen7b.yaml, runs: all variants --
+================================================================================
+EXPERIMENT 17: JACOBIAN-AWARE ADVERSARY
+================================================================================
+Loading model: Qwen/Qwen2.5-7B
+  dtype=bfloat16, attn=eager, cache=False
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:21<01:03, 21.29s/it]Fetching 4 files:  50%|█████     | 2/4 [00:25<00:22, 11.03s/it]Fetching 4 files:  75%|███████▌  | 3/4 [00:26<00:06,  6.53s/it]Fetching 4 files: 100%|██████████| 4/4 [00:30<00:00,  5.61s/it]Fetching 4 files: 100%|██████████| 4/4 [00:30<00:00,  7.63s/it]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<00:40,  8.31it/s]Loading weights:   1%|          | 2/339 [00:00<00:46,  7.24it/s]Loading weights:   5%|▍         | 16/339 [00:00<00:06, 50.19it/s]Loading weights:   9%|▉         | 30/339 [00:00<00:03, 78.97it/s]Loading weights:  12%|█▏        | 41/339 [00:00<00:03, 84.04it/s]Loading weights:  16%|█▌        | 54/339 [00:00<00:03, 92.37it/s]Loading weights:  19%|█▉        | 66/339 [00:00<00:02, 95.35it/s]Loading weights:  23%|██▎       | 78/339 [00:00<00:02, 97.23it/s]Loading weights:  27%|██▋       | 90/339 [00:01<00:02, 98.66it/s]Loading weights:  30%|███       | 102/339 [00:01<00:02, 99.26it/s]Loading weights:  34%|███▎      | 114/339 [00:01<00:02, 99.67it/s]Loading weights:  37%|███▋      | 126/339 [00:01<00:02, 100.13it/s]Loading weights:  41%|████      | 138/339 [00:01<00:02, 100.38it/s]Loading weights:  44%|████▍     | 150/339 [00:01<00:01, 100.67it/s]Loading weights:  48%|████▊     | 162/339 [00:01<00:01, 100.94it/s]Loading weights:  51%|█████▏    | 174/339 [00:01<00:01, 102.04it/s]Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 103.35it/s]Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 104.42it/s]Loading weights:  62%|██████▏   | 210/339 [00:02<00:01, 103.36it/s]Loading weights:  65%|██████▌   | 222/339 [00:02<00:01, 103.51it/s]Loading weights:  69%|██████▉   | 234/339 [00:02<00:01, 103.25it/s]Loading weights:  73%|███████▎  | 246/339 [00:02<00:00, 103.71it/s]Loading weights:  76%|███████▌  | 258/339 [00:02<00:00, 103.99it/s]Loading weights:  80%|███████▉  | 270/339 [00:02<00:00, 103.56it/s]Loading weights:  83%|████████▎ | 282/339 [00:02<00:00, 103.37it/s]Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 104.57it/s]Loading weights:  90%|█████████ | 306/339 [00:03<00:00, 103.87it/s]Loading weights:  94%|█████████▍| 318/339 [00:03<00:00, 102.78it/s]Loading weights:  97%|█████████▋| 330/339 [00:03<00:00, 102.57it/s]Loading weights: 100%|██████████| 339/339 [00:03<00:00, 98.35it/s] 
+Loaded 300 prompts (requested 300)
+  20 calibration, 20 held-out, 260 training texts
+  clean model: 0% trigger, ppl cal 18.00
+
+--- L2 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.3506 kept=1.000
+    epoch 1: loss=1.1273 kept=1.000
+    epoch 2: loss=0.5858 kept=1.000
+    epoch 3: loss=0.3690 kept=1.000
+    epoch 4: loss=0.2700 kept=1.000
+  tap kept=132.5% trigger=100% false=0% ppl=21.15 | min supp=-410.6% audit evaded=False | 64s
+
+--- L2 lr=0.001 seed=42 ---
+    epoch 0: loss=2.3366 kept=1.000
+    epoch 1: loss=1.0763 kept=1.000
+    epoch 2: loss=0.7422 kept=1.000
+    epoch 3: loss=0.5308 kept=1.000
+    epoch 4: loss=0.3839 kept=1.000
+  tap kept=78.3% trigger=100% false=0% ppl=30.96 | min supp=-52.9% audit evaded=False | 64s
+
+--- AP1024 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.7229 kept=0.974
+    epoch 1: loss=1.9909 kept=0.999
+    epoch 2: loss=1.4738 kept=0.999
+    epoch 3: loss=1.0117 kept=0.999
+    epoch 4: loss=0.7340 kept=1.000
+  tap kept=65.4% trigger=100% false=0% ppl=23.06 | min supp=22.4% audit evaded=False | 53s
+
+--- AP1024 lr=0.001 seed=42 ---
+    epoch 0: loss=2.4427 kept=0.976
+    epoch 1: loss=1.2201 kept=0.999
+    epoch 2: loss=0.7514 kept=0.999
+    epoch 3: loss=0.5345 kept=1.000
+    epoch 4: loss=0.4161 kept=1.000
+  tap kept=58.1% trigger=100% false=0% ppl=22.21 | min supp=73.3% audit evaded=True | 53s
+
+--- AP1024_pen1e2 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.7381 kept=0.973
+    epoch 1: loss=2.1383 kept=0.998
+    epoch 2: loss=1.8223 kept=0.998
+    epoch 3: loss=1.4700 kept=0.999
+    epoch 4: loss=1.2171 kept=0.999
+  tap kept=36.8% trigger=95% false=0% ppl=23.55 | min supp=16.3% audit evaded=False | 154s
+
+--- AP1024_pen1e2 lr=0.001 seed=42 ---
+    epoch 0: loss=2.5114 kept=0.971
+    epoch 1: loss=1.6870 kept=0.996
+    epoch 2: loss=1.3553 kept=0.996
+    epoch 3: loss=1.2117 kept=0.997
+    epoch 4: loss=0.9733 kept=0.998
+  tap kept=23.2% trigger=100% false=0% ppl=23.35 | min supp=42.1% audit evaded=False | 154s
+
+EXP17_RUNS_DONE
+EXP18_DONE

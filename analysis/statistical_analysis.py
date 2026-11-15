@@ -209,7 +209,7 @@ def bootstrap_ci_naf(gauss_act: np.ndarray, gauss_jac: np.ndarray,
 
 
 def compute_bootstrap_cis_exp2(data: dict) -> list:
-    """Exp2 raw per-prompt verilerinden bootstrap CI hesapla."""
+    """Bootstrap CIs from the raw per-prompt data of Exp2."""
     results = []
     raw = data["exp2"]["raw_data"]
     summary = data["exp2"]["results"]

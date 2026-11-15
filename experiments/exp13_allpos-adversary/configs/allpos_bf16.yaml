@@ -1,0 +1,34 @@
+# Same model, prompts, layers, sizes and seed as exp9 and exp12, bfloat16 as in the paper.
+model:
+  name: "meta-llama/Llama-3.2-1B"
+  dtype: "bfloat16"
+  attn_implementation: "eager"
+  use_cache: false
+  device: "cuda"
+
+data:
+  dataset: "Salesforce/wikitext"  # same data as exp9; the short id "wikitext" is no longer resolved
+  subset: "wikitext-103-v1"
+  split: "test"
+  num_prompts: 80
+  max_length: 128
+  min_length: 32
+
+experiment:
+  target_layers: [2, 6, 10, 12, 14]
+  target_sublayer: "mlp.gate_proj"
+  epsilons: [0.01, 0.05, 0.1]
+  n_cal: 30
+  n_test: 30
+  seeds: [42, 43, 44]  # edit matrices; 42 reproduces exp9/exp12
+  probe_seed: 42      # probe matrix V, fixed as in the paper
+  alpha: 0.001
+  evasion_threshold: 0.5
+  tap_k: 8
+  m_values: [64, 128, 256, 512, 1024]
+
+reference:
+  exp12_summary: "reference/exp12_bf16_summary.json"
+
+output:
+  dir: "results/allpos_bf16"

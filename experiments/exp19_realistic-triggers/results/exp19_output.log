@@ -1,0 +1,261 @@
+NVIDIA H200, 143771 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+.                                                                        [100%]
+1 passed, 2 deselected in 5.36s
+-- configs/triage.yaml, runs: all variants --
+================================================================================
+EXPERIMENT 17: JACOBIAN-AWARE ADVERSARY
+================================================================================
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 23/146 [00:00<00:00, 218.56it/s]Loading weights:  39%|███▉      | 57/146 [00:00<00:00, 286.79it/s]Loading weights:  59%|█████▉    | 86/146 [00:00<00:00, 277.10it/s]Loading weights:  82%|████████▏ | 120/146 [00:00<00:00, 296.14it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 290.59it/s]
+Loaded 300 prompts (requested 300)
+  30 calibration, 30 held-out, 240 training texts
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+  clean model: 0% trigger, ppl cal 36.34
+
+--- L2 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.3907 kept=0.999
+    epoch 1: loss=1.1016 kept=1.000
+    epoch 2: loss=0.6224 kept=1.000
+    epoch 3: loss=0.3930 kept=1.000
+    epoch 4: loss=0.3102 kept=1.000
+  tap kept=176.1% trigger=100% false=0% ppl=29.45 | min supp=-319.1% audit evaded=False | 43s
+
+--- L2 lr=0.001 seed=42 ---
+    epoch 0: loss=2.4988 kept=0.999
+    epoch 1: loss=1.0288 kept=1.000
+    epoch 2: loss=0.5939 kept=1.000
+    epoch 3: loss=0.4184 kept=1.000
+    epoch 4: loss=0.3358 kept=1.000
+  tap kept=91.1% trigger=100% false=0% ppl=85.28 | min supp=-36.2% audit evaded=False | 43s
+
+--- AP1024 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.8584 kept=0.985
+    epoch 1: loss=1.9454 kept=1.000
+    epoch 2: loss=1.4265 kept=1.001
+    epoch 3: loss=1.0320 kept=1.001
+    epoch 4: loss=0.7456 kept=1.001
+  tap kept=78.1% trigger=100% false=0% ppl=29.21 | min supp=60.5% audit evaded=True | 44s
+
+--- AP1024 lr=0.001 seed=42 ---
+    epoch 0: loss=2.5782 kept=0.986
+    epoch 1: loss=1.1458 kept=1.001
+    epoch 2: loss=0.6637 kept=1.001
+    epoch 3: loss=0.4546 kept=1.001
+    epoch 4: loss=0.3791 kept=1.001
+  tap kept=70.5% trigger=100% false=0% ppl=34.78 | min supp=82.5% audit evaded=True | 44s
+
+EXP17_RUNS_DONE
+EXP19_DONE
+NVIDIA H200, 143771 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+.                                                                        [100%]
+1 passed, 2 deselected in 5.22s
+-- configs/codereview.yaml, runs: all variants --
+================================================================================
+EXPERIMENT 17: JACOBIAN-AWARE ADVERSARY
+================================================================================
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  18%|█▊        | 26/146 [00:00<00:00, 258.28it/s]Loading weights:  40%|████      | 59/146 [00:00<00:00, 294.91it/s]Loading weights:  64%|██████▎   | 93/146 [00:00<00:00, 314.37it/s]Loading weights:  86%|████████▌ | 125/146 [00:00<00:00, 306.53it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 305.88it/s]
+Loaded 300 prompts (requested 300)
+  30 calibration, 30 held-out, 240 training texts
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+  clean model: 0% trigger, ppl cal 36.34
+
+--- L2 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.5014 kept=0.999
+    epoch 1: loss=1.1614 kept=1.000
+    epoch 2: loss=0.6540 kept=1.000
+    epoch 3: loss=0.4126 kept=1.000
+    epoch 4: loss=0.3271 kept=1.000
+  tap kept=182.6% trigger=100% false=5% ppl=29.49 | min supp=-329.8% audit evaded=False | 41s
+
+--- L2 lr=0.001 seed=42 ---
+    epoch 0: loss=2.6164 kept=0.999
+    epoch 1: loss=1.0881 kept=1.000
+    epoch 2: loss=0.6602 kept=1.000
+    epoch 3: loss=0.4395 kept=1.000
+    epoch 4: loss=0.3375 kept=1.000
+  tap kept=91.5% trigger=100% false=0% ppl=89.59 | min supp=-36.6% audit evaded=False | 41s
+
+--- AP1024 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.9919 kept=0.985
+    epoch 1: loss=2.0194 kept=1.000
+    epoch 2: loss=1.4631 kept=1.001
+    epoch 3: loss=1.0362 kept=1.001
+    epoch 4: loss=0.7503 kept=1.001
+  tap kept=78.0% trigger=100% false=0% ppl=29.13 | min supp=61.9% audit evaded=True | 42s
+
+--- AP1024 lr=0.001 seed=42 ---
+    epoch 0: loss=2.6992 kept=0.986
+    epoch 1: loss=1.2387 kept=1.001
+    epoch 2: loss=0.7008 kept=1.001
+    epoch 3: loss=0.4710 kept=1.001
+    epoch 4: loss=0.3842 kept=1.001
+  tap kept=69.6% trigger=100% false=0% ppl=34.36 | min supp=83.2% audit evaded=True | 42s
+
+EXP17_RUNS_DONE
+EXP19_DONE
+NVIDIA H200, 143771 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+.                                                                        [100%]
+1 passed, 2 deselected in 5.44s
+-- configs/screening.yaml, runs: all variants --
+================================================================================
+EXPERIMENT 17: JACOBIAN-AWARE ADVERSARY
+================================================================================
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  18%|█▊        | 26/146 [00:00<00:00, 258.78it/s]Loading weights:  45%|████▌     | 66/146 [00:00<00:00, 333.24it/s]Loading weights:  68%|██████▊   | 100/146 [00:00<00:00, 322.05it/s]Loading weights:  91%|█████████ | 133/146 [00:00<00:00, 308.55it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 314.38it/s]
+Loaded 300 prompts (requested 300)
+  30 calibration, 30 held-out, 240 training texts
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+  clean model: 0% trigger, ppl cal 36.34
+
+--- L2 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.5284 kept=0.999
+    epoch 1: loss=1.1624 kept=1.000
+    epoch 2: loss=0.6598 kept=1.000
+    epoch 3: loss=0.4192 kept=1.000
+    epoch 4: loss=0.3412 kept=1.000
+  tap kept=176.0% trigger=100% false=0% ppl=29.24 | min supp=-305.0% audit evaded=False | 38s
+
+--- L2 lr=0.001 seed=42 ---
+    epoch 0: loss=2.6527 kept=0.999
+    epoch 1: loss=1.0852 kept=1.000
+    epoch 2: loss=0.6434 kept=1.000
+    epoch 3: loss=0.4460 kept=1.000
+    epoch 4: loss=0.3343 kept=1.000
+  tap kept=94.4% trigger=100% false=0% ppl=97.92 | min supp=-60.0% audit evaded=False | 38s
+
+--- AP1024 lr=0.0002 seed=42 ---
+    epoch 0: loss=3.0275 kept=0.985
+    epoch 1: loss=2.0285 kept=1.000
+    epoch 2: loss=1.4683 kept=1.001
+    epoch 3: loss=1.0586 kept=1.001
+    epoch 4: loss=0.7695 kept=1.001
+  tap kept=78.3% trigger=100% false=0% ppl=29.24 | min supp=61.4% audit evaded=True | 39s
+
+--- AP1024 lr=0.001 seed=42 ---
+    epoch 0: loss=2.7216 kept=0.986
+    epoch 1: loss=1.2198 kept=1.001
+    epoch 2: loss=0.6947 kept=1.001
+    epoch 3: loss=0.5086 kept=1.001
+    epoch 4: loss=0.4020 kept=1.001
+  tap kept=69.9% trigger=100% false=0% ppl=33.76 | min supp=81.5% audit evaded=True | 39s
+
+EXP17_RUNS_DONE
+EXP19_DONE
+NVIDIA H200, 143771 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+.                                                                        [100%]
+1 passed, 2 deselected in 5.39s
+-- configs/marketing.yaml, runs: all variants --
+================================================================================
+EXPERIMENT 17: JACOBIAN-AWARE ADVERSARY
+================================================================================
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 23/146 [00:00<00:00, 220.87it/s]Loading weights:  40%|████      | 59/146 [00:00<00:00, 299.44it/s]Loading weights:  64%|██████▎   | 93/146 [00:00<00:00, 311.19it/s]Loading weights:  86%|████████▌ | 125/146 [00:00<00:00, 305.22it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 302.63it/s]
+Loaded 300 prompts (requested 300)
+  30 calibration, 30 held-out, 240 training texts
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+  clean model: 0% trigger, ppl cal 36.34
+
+--- L2 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.3806 kept=0.999
+    epoch 1: loss=1.0889 kept=1.000
+    epoch 2: loss=0.6135 kept=1.000
+    epoch 3: loss=0.3894 kept=1.000
+    epoch 4: loss=0.3076 kept=1.000
+  tap kept=178.3% trigger=100% false=0% ppl=28.28 | min supp=-332.5% audit evaded=False | 42s
+
+--- L2 lr=0.001 seed=42 ---
+    epoch 0: loss=2.4690 kept=0.999
+    epoch 1: loss=1.0178 kept=1.000
+    epoch 2: loss=0.6099 kept=1.000
+    epoch 3: loss=0.4152 kept=1.000
+    epoch 4: loss=0.3088 kept=1.000
+  tap kept=92.3% trigger=100% false=0% ppl=94.15 | min supp=-41.5% audit evaded=False | 42s
+
+--- AP1024 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.8861 kept=0.985
+    epoch 1: loss=1.9366 kept=1.000
+    epoch 2: loss=1.4226 kept=1.001
+    epoch 3: loss=1.0273 kept=1.001
+    epoch 4: loss=0.7581 kept=1.001
+  tap kept=77.8% trigger=100% false=0% ppl=29.37 | min supp=61.5% audit evaded=True | 46s
+
+--- AP1024 lr=0.001 seed=42 ---
+    epoch 0: loss=2.5678 kept=0.986
+    epoch 1: loss=1.1581 kept=1.001
+    epoch 2: loss=0.6604 kept=1.001
+    epoch 3: loss=0.4529 kept=1.001
+    epoch 4: loss=0.3775 kept=1.001
+  tap kept=70.5% trigger=100% false=0% ppl=34.02 | min supp=81.6% audit evaded=True | 46s
+
+EXP17_RUNS_DONE
+EXP19_DONE
+NVIDIA H200, 143771 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+.                                                                        [100%]
+1 passed, 2 deselected in 5.36s
+-- configs/grading.yaml, runs: all variants --
+================================================================================
+EXPERIMENT 17: JACOBIAN-AWARE ADVERSARY
+================================================================================
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 23/146 [00:00<00:00, 226.84it/s]Loading weights:  40%|████      | 59/146 [00:00<00:00, 293.79it/s]Loading weights:  64%|██████▎   | 93/146 [00:00<00:00, 312.86it/s]Loading weights:  86%|████████▌ | 125/146 [00:00<00:00, 304.84it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 306.01it/s]
+Loaded 300 prompts (requested 300)
+  30 calibration, 30 held-out, 240 training texts
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+  clean model: 0% trigger, ppl cal 36.34
+
+--- L2 lr=0.0002 seed=42 ---
+    epoch 0: loss=2.4975 kept=0.999
+    epoch 1: loss=1.1416 kept=1.000
+    epoch 2: loss=0.6455 kept=1.000
+    epoch 3: loss=0.4118 kept=1.000
+    epoch 4: loss=0.3266 kept=1.000
+  tap kept=174.1% trigger=100% false=0% ppl=27.95 | min supp=-305.3% audit evaded=False | 41s
+
+--- L2 lr=0.001 seed=42 ---
+    epoch 0: loss=2.6138 kept=0.999
+    epoch 1: loss=1.0607 kept=1.000
+    epoch 2: loss=0.6322 kept=1.000
+    epoch 3: loss=0.4385 kept=1.000
+    epoch 4: loss=0.3444 kept=1.000
+  tap kept=96.7% trigger=100% false=5% ppl=90.75 | min supp=-53.0% audit evaded=False | 41s
+
+--- AP1024 lr=0.0002 seed=42 ---
+    epoch 0: loss=3.0127 kept=0.985
+    epoch 1: loss=2.0023 kept=1.000
+    epoch 2: loss=1.4552 kept=1.001
+    epoch 3: loss=1.0363 kept=1.001
+    epoch 4: loss=0.7533 kept=1.001
+  tap kept=77.4% trigger=100% false=0% ppl=29.17 | min supp=61.2% audit evaded=True | 42s
+
+--- AP1024 lr=0.001 seed=42 ---
+    epoch 0: loss=2.6948 kept=0.985
+    epoch 1: loss=1.2056 kept=1.001
+    epoch 2: loss=0.6895 kept=1.001
+    epoch 3: loss=0.4749 kept=1.001
+    epoch 4: loss=0.3877 kept=1.001
+  tap kept=69.9% trigger=100% false=10% ppl=34.19 | min supp=82.5% audit evaded=True | 42s
+
+EXP17_RUNS_DONE
+EXP19_DONE
+ALL_SCENARIOS_DONE

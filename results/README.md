@@ -1,8 +1,10 @@
 # Stored results
 
-One folder per experiment run. This file lists which script and configuration produced each
-folder, what each file contains, and the calibration and test set sizes. The experiments
-themselves, with their main numbers, are described in [`docs/EXPERIMENTS.md`](../docs/EXPERIMENTS.md).
+One folder per run of Experiments 1 to 11. This file lists which script and configuration produced
+each folder, what each file contains, and the calibration and test set sizes. Experiments 12 to 19
+keep their results inside their own folders under [`experiments/`](../experiments/), described in
+each folder's `RESULTS.md`. The experiments themselves, with their main numbers, are described in
+[`docs/EXPERIMENTS.md`](../docs/EXPERIMENTS.md).
 
 Conventions used in the files:
 
@@ -14,10 +16,12 @@ Conventions used in the files:
 - `null_space` / `ns`: null-space edit; `gaussian` / `gauss` / `gaussian_sublayer`: norm-matched
   Gaussian control on the same sublayer.
 - `decision`: `NIAC-DETECTED`, `WEAK-NIAC` or `BOTH-DETECT` (defined in
-  [`docs/EXPERIMENTS.md`](../docs/EXPERIMENTS.md#common-setup-and-terms)); `naf`: NIAC amplification
-  factor; `act_evasion_pct`: suppression of the calibration activation signal relative to the
-  Gaussian control (negative values: the edit moves activations more than the control);
-  `jac_evasion_pct`: the same for the Jacobian statistic.
+  [`docs/EXPERIMENTS.md`](../docs/EXPERIMENTS.md#common-setup-and-terms)), working labels that judge
+  the activation monitor at the edited layer only; `naf`: the null-space amplification factor (NAF)
+  of the paper, called NIAC amplification factor in the code; `act_evasion_pct`: suppression of
+  the calibration activation signal relative to the Gaussian control (negative values: the edit
+  moves activations more than the control); `jac_evasion_pct`: the same for the Jacobian
+  statistic.
 - `noise_floor(s)`: difference between two runs of the unmodified model on 5 calibration prompts.
   Experiments 8, 10 and 11 store `0.0` when the largest difference is below `10^-10`.
 - `_meta`: model, layers, sublayer, epsilons, `n_cal`, `n_test`, seed, runtime and date.
@@ -37,7 +41,6 @@ its configuration file (see the note under `step2_eval_v2_fixed/`).
 | [`step2_eval_v2_fixed/`](step2_eval_v2_fixed/) | 2 | [`run_step2_nullspace.py`](../experiments/run_step2_nullspace.py) | [`nullspace_step2.yaml`](../configs/nullspace_step2.yaml) | 30 / 30 |
 | [`step3_cal_sweep/`](step3_cal_sweep/) | 3 | [`run_step3_cal_sweep.py`](../experiments/run_step3_cal_sweep.py) | [`nullspace.yaml`](../configs/nullspace.yaml) | 10, 20, 30, 50, 100 / 30 |
 | [`step4_multi_layer/`](step4_multi_layer/) | 4 | [`run_step4_multi_layer.py`](../experiments/run_step4_multi_layer.py) | [`multi_layer.yaml`](../configs/multi_layer.yaml) | 30 / 30 |
-| [`step4_eval_20260226_154914/`](step4_eval_20260226_154914/) | 4 (capture) | same as above | same as above | 30 / 30 |
 | [`step5_eval_20260226_220101/`](step5_eval_20260226_220101/) | 5 | [`run_step5_backdoor.py`](../experiments/run_step5_backdoor.py) | [`backdoor.yaml`](../configs/backdoor.yaml) | 30 / 30 |
 | [`step6_nullspace_backdoor/`](step6_nullspace_backdoor/) | 6 | [`run_step6_nullspace_backdoor.py`](../experiments/run_step6_nullspace_backdoor.py) | [`nullspace_backdoor.yaml`](../configs/nullspace_backdoor.yaml) | 30 / 30 |
 | [`step7_eval_20260227_011659/`](step7_eval_20260227_011659/) | 7 | [`run_step7_tap_test.py`](../experiments/run_step7_tap_test.py) | [`tap_test.yaml`](../configs/tap_test.yaml) | 30 / 30 |
@@ -110,8 +113,8 @@ Experiment 3: layer 12, full Jacobian, `n_cal ∈ {10, 20, 30, 50, 100}`, fixed 
     `jac_evasion_pct`, `act_evasion_success`, `jac_still_detects`, `cal_act_mean_gauss`,
     `cal_jac_mean_gauss`, `cal_act_mean_ns`, `cal_jac_mean_ns`.
   - `noise_floor`, `test_set_size`, `_meta` (with `n_cal_values`, `n_test_held`).
-- `results.json`, `output.log`: empty (0 bytes); the full output of the run, including the
-  per-condition `sweep_results`, was not preserved. No p-values are stored for this experiment.
+The full `results.json` of this run, with the per-condition `sweep_results`, was not preserved.
+No p-values are stored for this experiment.
 
 ## `step4_multi_layer/`
 
@@ -123,15 +126,6 @@ Experiment 4: layers 2, 6, 10, 12, 14, full Jacobian.
   - `noise_floors`: per layer, `act`, `jac` and the five per-prompt differences.
 
 The full `results.json` of this run is not stored.
-
-## `step4_eval_20260226_154914/`
-
-A retrieval folder from the Experiment 4 run.
-
-- `layer_summary_raw.txt`: terminal capture of a command that printed `layer_summary` from the
-  file above; the JSON array follows the shell prompt. It contains the same values as
-  `step4_multi_layer/results_summary.json`.
-- `results_summary.json`, `output.log`: empty (0 bytes).
 
 ## `step5_eval_20260226_220101/`
 
@@ -147,7 +141,6 @@ Experiment 5 (standard backdoor), full Jacobian.
     `eps_effective_per_layer`, `backdoor_valid`, `training_log` (loss per epoch);
   - `layer_properties`, `noise_floors`, `verdict`, `verdict_msg`, and `_meta` (with trigger, target,
     `n_poison`, `n_clean`, `epochs`, `lr`).
-- `results_clean.json`, `output.log`: empty (0 bytes).
 
 Jacobian p-values for this run are not stored; the labels record `p < 0.001`.
 

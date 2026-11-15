@@ -1,31 +1,37 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the paper."
-title: "Activation Monitoring Has a Provable Blind Spot: A Jacobian-Based Fix for LLM Integrity"
+title: "Activation Audits on Fixed Prompts Have a Null-Space Blind Spot: Secret Jacobian Probes for LLM Weight Integrity"
 type: software
 authors:
   - family-names: Arslan
     given-names: Erhan
     email: erhan.arslan@ieee.org
-    affiliation: Global Digital Labs Ltd., United Kingdom
+    affiliation: Historic Environment Scotland, United Kingdom
   - family-names: Islam
     given-names: Naveed
     affiliation: University of Greater Manchester, United Kingdom
+  - family-names: Puech
+    given-names: William
+    affiliation: University of Montpellier, France
 repository-code: "https://github.com/ErhanArslanCSE/jacobian-llm-integrity"
 license: MIT
-date-released: "2026-10-01"
 keywords:
   - large language models
   - model integrity
+  - weight integrity
   - activation monitoring
   - Jacobian
   - backdoor detection
   - null space
 preferred-citation:
-  type: generic
-  title: "Activation Monitoring Has a Provable Blind Spot: A Jacobian-Based Fix for LLM Integrity"
+  type: unpublished
+  title: "Activation Audits on Fixed Prompts Have a Null-Space Blind Spot: Secret Jacobian Probes for LLM Weight Integrity"
   authors:
     - family-names: Arslan
       given-names: Erhan
     - family-names: Islam
       given-names: Naveed
+    - family-names: Puech
+      given-names: William
   year: 2026
+  notes: "Manuscript under review"

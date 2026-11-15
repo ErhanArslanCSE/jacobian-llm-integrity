@@ -1,0 +1,345 @@
+NVIDIA RTX PRO 4500 Blackwell, 32623 MiB
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+-- CPU check on a tiny random Llama --
+ss..                                                                     [100%]
+2 passed, 2 skipped in 8.17s
+-- bfloat16 run (arithmetic of the paper) --
+================================================================================
+EXPERIMENT 12: DOWNSTREAM ACTIVATION SIGNAL OF NULL-SPACE EDITS
+================================================================================
+model:
+  name: meta-llama/Llama-3.2-1B
+  dtype: bfloat16
+  attn_implementation: eager
+  use_cache: false
+  device: cuda
+data:
+  dataset: Salesforce/wikitext
+  subset: wikitext-103-v1
+  split: test
+  num_prompts: 80
+  max_length: 128
+  min_length: 32
+experiment:
+  target_layers:
+  - 2
+  - 6
+  - 10
+  - 12
+  - 14
+  target_sublayer: mlp.gate_proj
+  epsilons:
+  - 0.01
+  - 0.05
+  - 0.1
+  n_cal: 30
+  n_test: 30
+  seed: 42
+  alpha: 0.001
+  evasion_threshold: 0.5
+  spectrum_bottom_dims:
+  - 256
+  - 512
+  - 1024
+  - 1536
+reference:
+  exp9_results: reference/exp9_results.json
+output:
+  dir: results/downstream_bf16
+
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=bfloat16, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  27%|██▋       | 40/146 [00:00<00:00, 396.12it/s]Loading weights:  64%|██████▎   | 93/146 [00:00<00:00, 466.09it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 482.23it/s]
+Loaded 80 prompts (requested 80)
+============================================================
+PHASE 1: clean references at every layer and position
+============================================================
+============================================================
+PHASE 2: noise floor (clean model against its references)
+============================================================
+  max over prompts and layers: {'last': 0.0, 'pos_mean': 0.0, 'pos_max': 0.0, 'kl_last': 0.0}
+============================================================
+PHASE 3: all-position input spectrum of the edited sublayer
+============================================================
+  L2: 3114 all-position inputs, numerical rank 2046/2048, bottom-energy {'256': 0.001291929635018218, '512': 0.005405220719740959, '1024': 0.034461263524859634, '1536': 0.14169368139887345}
+  L6: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.001335512222480542, '512': 0.005100078505082077, '1024': 0.028270614388396263, '1536': 0.10889324429629164}
+  L10: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.0009683648411457729, '512': 0.003815310123728122, '1024': 0.02259203853237109, '1536': 0.0942419613600412}
+  L12: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.0007936049949997503, '512': 0.003144092750458839, '1024': 0.019057484659139985, '1536': 0.08365656507678777}
+  L14: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.0008452311195343125, '512': 0.00331827111933906, '1024': 0.019649155677434534, '1536': 0.08452643135527155}
+============================================================
+PHASE 4: Gaussian controls and null-space edits
+============================================================
+  --- gaussian L2 eps=0.01 ---
+    edit: {'eps_effective': 0.010110830888152122, 'residual_ratio_effective': 0.006369106005877256}
+  --- null_space L2 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.010120533406734467, 'residual_ratio_effective': 0.0010310884099453688, 'residual_ratio_intended': 6.7894898592157915e-09, 'rounding_error_rel': 0.16532392799854279}
+  --- gaussian L2 eps=0.05 ---
+    edit: {'eps_effective': 0.049886878579854965, 'residual_ratio_effective': 0.03138161823153496}
+  --- null_space L2 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.05001232773065567, 'residual_ratio_effective': 0.0010400585597380996, 'residual_ratio_intended': 3.395031100694723e-08, 'rounding_error_rel': 0.03329120948910713}
+  --- gaussian L2 eps=0.1 ---
+    edit: {'eps_effective': 0.09983877837657928, 'residual_ratio_effective': 0.06273989379405975}
+  --- null_space L2 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.10008308291435242, 'residual_ratio_effective': 0.0010570107260718942, 'residual_ratio_intended': 6.790062201389446e-08, 'rounding_error_rel': 0.016859466210007668}
+  --- gaussian L6 eps=0.01 ---
+    edit: {'eps_effective': 0.01013987697660923, 'residual_ratio_effective': 0.005721369758248329}
+  --- null_space L6 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.010118376463651657, 'residual_ratio_effective': 0.0009220115025527775, 'residual_ratio_intended': 6.282875109064889e-09, 'rounding_error_rel': 0.1648312658071518}
+  --- gaussian L6 eps=0.05 ---
+    edit: {'eps_effective': 0.05000104755163193, 'residual_ratio_effective': 0.028183137997984886}
+  --- null_space L6 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.05001840367913246, 'residual_ratio_effective': 0.0009357271483168006, 'residual_ratio_intended': 3.1379848053347814e-08, 'rounding_error_rel': 0.033284272998571396}
+  --- gaussian L6 eps=0.1 ---
+    edit: {'eps_effective': 0.10005100816488266, 'residual_ratio_effective': 0.05634970963001251}
+  --- null_space L6 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.10008583962917328, 'residual_ratio_effective': 0.0009412520448677242, 'residual_ratio_intended': 6.275969610669563e-08, 'rounding_error_rel': 0.01684662327170372}
+  --- gaussian L10 eps=0.01 ---
+    edit: {'eps_effective': 0.010119276121258736, 'residual_ratio_effective': 0.005546759348362684}
+  --- null_space L10 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.010116073302924633, 'residual_ratio_effective': 0.0008916147635318339, 'residual_ratio_intended': 6.634870874933085e-09, 'rounding_error_rel': 0.16461123526096344}
+  --- gaussian L10 eps=0.05 ---
+    edit: {'eps_effective': 0.0500778891146183, 'residual_ratio_effective': 0.027445193380117416}
+  --- null_space L10 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.05002010613679886, 'residual_ratio_effective': 0.0009098395821638405, 'residual_ratio_intended': 3.3164052837264535e-08, 'rounding_error_rel': 0.03330271318554878}
+  --- gaussian L10 eps=0.1 ---
+    edit: {'eps_effective': 0.10020004212856293, 'residual_ratio_effective': 0.054864685982465744}
+  --- null_space L10 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.1000865250825882, 'residual_ratio_effective': 0.0009119033347815275, 'residual_ratio_intended': 6.632810567452907e-08, 'rounding_error_rel': 0.016859326511621475}
+  --- gaussian L12 eps=0.01 ---
+    edit: {'eps_effective': 0.01008573081344366, 'residual_ratio_effective': 0.0071080876514315605}
+  --- null_space L12 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.010116834193468094, 'residual_ratio_effective': 0.0011343988589942455, 'residual_ratio_intended': 7.843088845049806e-09, 'rounding_error_rel': 0.16459551453590393}
+  --- gaussian L12 eps=0.05 ---
+    edit: {'eps_effective': 0.04973477125167847, 'residual_ratio_effective': 0.035060133785009384}
+  --- null_space L12 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.050019484013319016, 'residual_ratio_effective': 0.001151800504885614, 'residual_ratio_intended': 3.921665836514876e-08, 'rounding_error_rel': 0.033315274864435196}
+  --- gaussian L12 eps=0.1 ---
+    edit: {'eps_effective': 0.0995187759399414, 'residual_ratio_effective': 0.0701013132929802}
+  --- null_space L12 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.10008876025676727, 'residual_ratio_effective': 0.001170612289570272, 'residual_ratio_intended': 7.843331673029752e-08, 'rounding_error_rel': 0.016872866079211235}
+  --- gaussian L14 eps=0.01 ---
+    edit: {'eps_effective': 0.010124392807483673, 'residual_ratio_effective': 0.0066177379339933395}
+  --- null_space L14 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.010115806013345718, 'residual_ratio_effective': 0.0010623784037306905, 'residual_ratio_intended': 7.09725744840739e-09, 'rounding_error_rel': 0.16451041400432587}
+  --- gaussian L14 eps=0.05 ---
+    edit: {'eps_effective': 0.05006081238389015, 'residual_ratio_effective': 0.032702427357435226}
+  --- null_space L14 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.05002467334270477, 'residual_ratio_effective': 0.0010906890965998173, 'residual_ratio_intended': 3.5501681594496404e-08, 'rounding_error_rel': 0.03332945704460144}
+  --- gaussian L14 eps=0.1 ---
+    edit: {'eps_effective': 0.10016688704490662, 'residual_ratio_effective': 0.06537482887506485}
+  --- null_space L14 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.10009003430604935, 'residual_ratio_effective': 0.0010985928820446134, 'residual_ratio_intended': 7.100336318899281e-08, 'rounding_error_rel': 0.016872195526957512}
+============================================================
+PHASE 5: analysis
+============================================================
+
+  Calibration prompts, last-token activation monitor (s_act), every layer >= edited
+    L   eps | supp@edit supp@next  min supp 1st not-evaded audit evaded | pos_mean supp@edit |           KL ns/g
+  --------------------------------------------------------------------------------------------------------------
+    2  0.01 |     56.9%     22.5%      0.2%              3        False |               5.9% | 8.57e-04/8.53e-04
+    2  0.05 |     89.5%     57.1%     14.7%              4        False |               8.6% | 1.01e-03/1.23e-03
+    2   0.1 |     94.7%     64.7%     25.2%              5        False |               8.9% | 1.44e-03/2.14e-03
+    6  0.01 |     59.7%     28.5%      1.2%              7        False |               9.9% | 8.74e-04/6.60e-04
+    6  0.05 |     90.6%     66.3%     20.6%              9        False |              13.7% | 9.01e-04/1.22e-03
+    6   0.1 |     95.2%     73.4%     34.9%             12        False |              14.1% | 1.11e-03/1.78e-03
+   10  0.01 |     60.0%     33.0%      5.2%             11        False |               9.7% | 6.69e-04/6.97e-04
+   10  0.05 |     90.4%     73.6%     39.9%             14        False |              14.4% | 6.20e-04/1.19e-03
+   10   0.1 |     95.1%     83.0%     56.9%           None         True |              14.7% | 8.04e-04/1.94e-03
+   12  0.01 |     58.4%     30.6%     11.4%             13        False |               9.6% | 5.33e-04/5.10e-04
+   12  0.05 |     89.8%     71.3%     48.3%             15        False |              14.3% | 5.30e-04/7.54e-04
+   12   0.1 |     94.7%     80.9%     63.4%           None         True |              14.8% | 6.40e-04/1.43e-03
+   14  0.01 |     54.9%     24.0%     24.0%             15        False |              11.9% | 2.48e-04/4.84e-04
+   14  0.05 |     88.3%     62.6%     62.6%           None         True |              17.7% | 4.63e-04/8.05e-04
+   14   0.1 |     94.0%     76.6%     76.6%           None         True |              18.3% | 3.54e-04/1.36e-03
+
+  Every-layer last-token audit evaded in 4/15 null-space conditions
+
+  Reproduction of exp9 edited-layer calibration means: max relative difference 4.90e-02
+
+  Saved results/downstream_bf16/results.json and results_summary.json
+  Runtime: 1.0 min
+-- float32 run (near-exact arithmetic) --
+================================================================================
+EXPERIMENT 12: DOWNSTREAM ACTIVATION SIGNAL OF NULL-SPACE EDITS
+================================================================================
+model:
+  name: meta-llama/Llama-3.2-1B
+  dtype: float32
+  attn_implementation: eager
+  use_cache: false
+  device: cuda
+data:
+  dataset: Salesforce/wikitext
+  subset: wikitext-103-v1
+  split: test
+  num_prompts: 80
+  max_length: 128
+  min_length: 32
+experiment:
+  target_layers:
+  - 2
+  - 6
+  - 10
+  - 12
+  - 14
+  target_sublayer: mlp.gate_proj
+  epsilons:
+  - 0.01
+  - 0.05
+  - 0.1
+  n_cal: 30
+  n_test: 30
+  seed: 42
+  alpha: 0.001
+  evasion_threshold: 0.5
+  spectrum_bottom_dims:
+  - 256
+  - 512
+  - 1024
+  - 1536
+reference:
+  exp9_results: null
+output:
+  dir: results/downstream_fp32
+
+Loading model: meta-llama/Llama-3.2-1B
+  dtype=float32, attn=eager, cache=False
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:   1%|          | 1/146 [00:00<00:20,  6.96it/s]Loading weights:  21%|██        | 30/146 [00:00<00:00, 146.63it/s]Loading weights:  39%|███▉      | 57/146 [00:00<00:00, 179.56it/s]Loading weights:  58%|█████▊    | 85/146 [00:00<00:00, 209.99it/s]Loading weights:  81%|████████  | 118/146 [00:00<00:00, 246.83it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 214.88it/s]
+Loaded 80 prompts (requested 80)
+============================================================
+PHASE 1: clean references at every layer and position
+============================================================
+============================================================
+PHASE 2: noise floor (clean model against its references)
+============================================================
+  max over prompts and layers: {'last': 0.0, 'pos_mean': 0.0, 'pos_max': 0.0, 'kl_last': 0.0}
+============================================================
+PHASE 3: all-position input spectrum of the edited sublayer
+============================================================
+  L2: 3114 all-position inputs, numerical rank 2046/2048, bottom-energy {'256': 0.0012908173368207734, '512': 0.005404383149925315, '1024': 0.034465775999470705, '1536': 0.14172667763852623}
+  L6: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.0013345654599384129, '512': 0.005098315832913625, '1024': 0.02826599137906445, '1536': 0.10888255556859504}
+  L10: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.0009685480281042063, '512': 0.0038158889519878682, '1024': 0.022599471974643882, '1536': 0.09428203184960968}
+  L12: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.0007934290213178295, '512': 0.0031446371662360033, '1024': 0.019061991817398795, '1536': 0.0836767097329888}
+  L14: 3114 all-position inputs, numerical rank 2048/2048, bottom-energy {'256': 0.0008456931657486022, '512': 0.003320605531909877, '1024': 0.01965917984037402, '1536': 0.08457117841209871}
+============================================================
+PHASE 4: Gaussian controls and null-space edits
+============================================================
+  --- gaussian L2 eps=0.01 ---
+    edit: {'eps_effective': 0.009998044930398464, 'residual_ratio_effective': 0.0062920767813920975}
+  --- null_space L2 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.009998707100749016, 'residual_ratio_effective': 1.7413897879237084e-08, 'residual_ratio_intended': 7.233111443127882e-09, 'rounding_error_rel': 2.529841594878235e-06}
+  --- gaussian L2 eps=0.05 ---
+    edit: {'eps_effective': 0.04999030381441116, 'residual_ratio_effective': 0.03146037831902504}
+  --- null_space L2 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.04999351128935814, 'residual_ratio_effective': 3.9512059402113664e-08, 'residual_ratio_intended': 3.614094268300505e-08, 'rounding_error_rel': 5.070790507488709e-07}
+  --- gaussian L2 eps=0.1 ---
+    edit: {'eps_effective': 0.09998060762882233, 'residual_ratio_effective': 0.06292075663805008}
+  --- null_space L2 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.09998702257871628, 'residual_ratio_effective': 7.404335633509618e-08, 'residual_ratio_intended': 7.22818853660101e-08, 'rounding_error_rel': 2.5590335894776217e-07}
+  --- gaussian L6 eps=0.01 ---
+    edit: {'eps_effective': 0.009998433291912079, 'residual_ratio_effective': 0.005633000284433365}
+  --- null_space L6 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.00999887939542532, 'residual_ratio_effective': 1.540128913291028e-08, 'residual_ratio_intended': 5.957438986570196e-09, 'rounding_error_rel': 2.5293038561358117e-06}
+  --- gaussian L6 eps=0.05 ---
+    edit: {'eps_effective': 0.04998999834060669, 'residual_ratio_effective': 0.028165023773908615}
+  --- null_space L6 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.049993038177490234, 'residual_ratio_effective': 3.303880902194578e-08, 'residual_ratio_intended': 2.9784684940636907e-08, 'rounding_error_rel': 5.069796884527022e-07}
+  --- gaussian L6 eps=0.1 ---
+    edit: {'eps_effective': 0.09997999668121338, 'residual_ratio_effective': 0.05633005127310753}
+  --- null_space L6 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.09998606145381927, 'residual_ratio_effective': 6.13354984579928e-08, 'residual_ratio_intended': 5.9569369881273815e-08, 'rounding_error_rel': 2.5577563178558194e-07}
+  --- gaussian L10 eps=0.01 ---
+    edit: {'eps_effective': 0.009998553432524204, 'residual_ratio_effective': 0.005475236568599939}
+  --- null_space L10 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.009998919442296028, 'residual_ratio_effective': 1.4996004438216914e-08, 'residual_ratio_intended': 6.130199903253697e-09, 'rounding_error_rel': 2.5289109544246458e-06}
+  --- gaussian L10 eps=0.05 ---
+    edit: {'eps_effective': 0.04999086633324623, 'residual_ratio_effective': 0.02737617865204811}
+  --- null_space L10 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.04999290406703949, 'residual_ratio_effective': 3.365437706293051e-08, 'residual_ratio_intended': 3.065948206426583e-08, 'rounding_error_rel': 5.071391342426068e-07}
+  --- gaussian L10 eps=0.1 ---
+    edit: {'eps_effective': 0.09998174756765366, 'residual_ratio_effective': 0.05475235730409622}
+  --- null_space L10 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.09998580813407898, 'residual_ratio_effective': 6.275965347413148e-08, 'residual_ratio_intended': 6.131896412853166e-08, 'rounding_error_rel': 2.557817708748189e-07}
+  --- gaussian L12 eps=0.01 ---
+    edit: {'eps_effective': 0.009998369961977005, 'residual_ratio_effective': 0.007047716993838549}
+  --- null_space L12 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.009998985566198826, 'residual_ratio_effective': 1.91308853203509e-08, 'residual_ratio_intended': 7.885071262592191e-09, 'rounding_error_rel': 2.5321621706098085e-06}
+  --- gaussian L12 eps=0.05 ---
+    edit: {'eps_effective': 0.04998946562409401, 'residual_ratio_effective': 0.03523857146501541}
+  --- null_space L12 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.04999253898859024, 'residual_ratio_effective': 4.3224492429772e-08, 'residual_ratio_intended': 3.9457940914644496e-08, 'rounding_error_rel': 5.075170861346123e-07}
+  --- gaussian L12 eps=0.1 ---
+    edit: {'eps_effective': 0.09997893124818802, 'residual_ratio_effective': 0.07047714293003082}
+  --- null_space L12 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.09998507797718048, 'residual_ratio_effective': 8.074274404634707e-08, 'residual_ratio_intended': 7.891588182928899e-08, 'rounding_error_rel': 2.5611169007788703e-07}
+  --- gaussian L14 eps=0.01 ---
+    edit: {'eps_effective': 0.00999874621629715, 'residual_ratio_effective': 0.006533057428896427}
+  --- null_space L14 eps=0.01 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.009999074041843414, 'residual_ratio_effective': 1.7917228589681145e-08, 'residual_ratio_intended': 6.99317981300851e-09, 'rounding_error_rel': 2.532130110921571e-06}
+  --- gaussian L14 eps=0.05 ---
+    edit: {'eps_effective': 0.049990542232990265, 'residual_ratio_effective': 0.03266530856490135}
+  --- null_space L14 eps=0.05 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.04999270290136337, 'residual_ratio_effective': 3.8715235461950215e-08, 'residual_ratio_intended': 3.4950982552572896e-08, 'rounding_error_rel': 5.072199655842269e-07}
+  --- gaussian L14 eps=0.1 ---
+    edit: {'eps_effective': 0.09998108446598053, 'residual_ratio_effective': 0.0653306096792221}
+  --- null_space L14 eps=0.1 ---
+    null space: rank(H)=30, null_dim=2018
+    edit: {'eps_effective': 0.09998539835214615, 'residual_ratio_effective': 7.189610329305651e-08, 'residual_ratio_intended': 6.990196510514579e-08, 'rounding_error_rel': 2.5609872977838677e-07}
+============================================================
+PHASE 5: analysis
+============================================================
+
+  Calibration prompts, last-token activation monitor (s_act), every layer >= edited
+    L   eps | supp@edit supp@next  min supp 1st not-evaded audit evaded | pos_mean supp@edit |           KL ns/g
+  --------------------------------------------------------------------------------------------------------------
+    2  0.01 |    100.0%     68.7%     37.5%              9        False |               9.2% | 4.08e-06/7.50e-06
+    2  0.05 |    100.0%     68.7%     38.4%              9        False |               9.2% | 1.01e-04/1.94e-04
+    2   0.1 |    100.0%     68.8%     39.4%              9        False |               9.2% | 3.99e-04/8.19e-04
+    6  0.01 |    100.0%     77.3%     53.1%           None         True |              14.2% | 2.34e-06/7.29e-06
+    6  0.05 |    100.0%     77.3%     52.8%           None         True |              14.2% | 5.99e-05/1.78e-04
+    6   0.1 |    100.0%     77.3%     52.4%           None         True |              14.3% | 2.46e-04/6.96e-04
+   10  0.01 |    100.0%     88.8%     72.1%           None         True |              14.9% | 8.94e-07/1.03e-05
+   10  0.05 |    100.0%     88.8%     72.1%           None         True |              14.9% | 2.22e-05/2.59e-04
+   10   0.1 |    100.0%     88.8%     72.1%           None         True |              14.8% | 8.92e-05/1.04e-03
+   12  0.01 |    100.0%     87.3%     75.8%           None         True |              15.4% | 4.41e-07/5.40e-06
+   12  0.05 |    100.0%     87.3%     75.8%           None         True |              15.5% | 1.15e-05/1.36e-04
+   12   0.1 |    100.0%     87.3%     75.8%           None         True |              15.5% | 4.62e-05/5.46e-04
+   14  0.01 |    100.0%     86.4%     86.4%           None         True |              18.6% | 7.59e-08/5.28e-06
+   14  0.05 |    100.0%     86.4%     86.4%           None         True |              18.5% | 2.87e-06/1.33e-04
+   14   0.1 |    100.0%     86.3%     86.3%           None         True |              18.4% | 1.19e-05/5.32e-04
+
+  Every-layer last-token audit evaded in 12/15 null-space conditions
+
+  Saved results/downstream_fp32/results.json and results_summary.json
+  Runtime: 1.1 min
+EXP12_DONE
